@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.project.manager.controllers.LoginController">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Pane prefHeight="285.0" prefWidth="302.0">
+         <children>
+            <Label layoutX="119.0" layoutY="56.0" text="username" />
+            <Label layoutX="119.0" layoutY="96.0" text="password" />
+            <Label layoutX="119.0" layoutY="155.0" text="LOGIN" />
+            <Label layoutX="30.0" layoutY="218.0" text="forgot password" />
+            <Button layoutX="201.0" layoutY="213.0" mnemonicParsing="false" fx:id="register" text="REGISTER" />
+         </children>
+      </Pane>
+   </children>
+</GridPane>

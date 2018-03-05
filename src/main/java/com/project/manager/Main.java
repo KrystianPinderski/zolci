@@ -14,10 +14,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
 
-        FXMLLoader loader = context.getBean(FXMLLoaderProvider.class).getLoader("/fxml/sample.fxml");
+        FXMLLoader loader = context.getBean(FXMLLoaderProvider.class).getLoader("/fxml/login.fxml");
         Parent root = loader.load();
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 300));
+        primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
     }
 

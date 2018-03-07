@@ -3,3 +3,7 @@ target/
 
 
 nbactions.xml
+.idea
+.idea/
+*.iml
+.idea/workspace.xml

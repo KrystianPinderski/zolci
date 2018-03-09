@@ -1,28 +1,26 @@
 package com.project.manager;
 
-import com.project.manager.config.SpringConfig;
+import com.project.manager.sceneManager.SceneManager;
+import com.project.manager.sceneManager.SceneType;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
+@SpringBootApplication
+@ComponentScan("com.project.manager")
 public class Main extends Application {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-
-        FXMLLoader loader = context.getBean(FXMLLoaderProvider.class).getLoader("/fxml/login.fxml");
-        Parent root = loader.load();
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
+    public static void main(String[] args) {
+        Application.launch(args);
     }
 
-
-    public static void main(String[] args) {
-        launch(args);
+    @Override
+    public void start(Stage primaryStage) {
+        SceneManager sceneManager = SceneManager.getInstance();
+        sceneManager.setPrimaryStage(primaryStage);
+        sceneManager.initializeScenes();
+        sceneManager.showScene(SceneType.REGISTRATION);
+        primaryStage.show();
     }
 }

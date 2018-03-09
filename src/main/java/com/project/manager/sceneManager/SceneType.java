@@ -1,5 +1,10 @@
 package com.project.manager.sceneManager;
 
+/**
+ * Scene Types includes all types of windows in application
+ * Necessary in switching scenes.
+ * Contains abstract method getId, so all types must Override that method with unique number!
+ */
 public enum SceneType {
     LOGIN {
         @Override
@@ -13,5 +18,9 @@ public enum SceneType {
         }
     };
 
+    /**
+     * Return unique value of scene, used in changing scenes.
+     * @return integer value
+     */
     abstract Integer getId();
 }

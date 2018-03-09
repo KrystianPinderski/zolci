@@ -19,8 +19,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         SceneManager sceneManager = SceneManager.getInstance();
         sceneManager.setPrimaryStage(primaryStage);
-        sceneManager.initializeScenes();
-        sceneManager.showScene(SceneType.REGISTRATION);
+        sceneManager.showScene(SceneType.LOGIN);
         primaryStage.show();
     }
 }

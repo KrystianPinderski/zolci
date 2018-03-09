@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public abstract class CustomSceneImpl implements CustomScene {
     private AnnotationConfigApplicationContext context;
@@ -27,8 +28,11 @@ public abstract class CustomSceneImpl implements CustomScene {
     private Scene createNewScene() {
         try {
             FXMLLoader loader = context.getBean(FXMLLoaderProvider.class).getLoader(pathToFXML);
-//            return new Scene(loader.load(), this.width, this.height);
-            return new Scene(loader.load());
+            if(Optional.ofNullable(width).isPresent() && Optional.ofNullable(height).isPresent()) {
+                return new Scene(loader.load(), this.width, this.height);
+            } else  {
+                return new Scene(loader.load());
+            }
         } catch (IOException e) {
             System.err.println("ERROR - FAILURE OF CREATING NEW SCENE");
             e.printStackTrace();

@@ -1,5 +1,6 @@
 package com.project.manager;
 
+
 import org.mindrot.jbcrypt.BCrypt;
 
 public class BCryptEncoder {

@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.project.manager.sceneManager.SceneManager;
 import com.project.manager.sceneManager.SceneType;
 import com.project.manager.services.RegistrationService;
+import com.project.manager.ui.AlertManager;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,10 +22,12 @@ import java.util.ResourceBundle;
 public class RegistrationController implements Initializable{
 
     private RegistrationService registrationService;
+    private SceneManager sceneManager;
 
     @Autowired
     public RegistrationController(RegistrationService registrationService) {
         this.registrationService = registrationService;
+        sceneManager = SceneManager.getInstance();
     }
 
     @FXML
@@ -43,6 +46,9 @@ public class RegistrationController implements Initializable{
     private JFXButton sign;
 
     @FXML
+    private JFXButton cancel;
+
+    @FXML
     private Label problem;
 
     @Override
@@ -56,10 +62,8 @@ public class RegistrationController implements Initializable{
         sign.setOnAction((e) -> {
             try {
                 registrationService.registerUser(username.getText(), email.getText(), password.getText(), repeatPassword.getText());
-                problem.setVisible(true);
-                problem.setStyle("-fx-background-color: #65b718");
-                problem.setText("Successfully registration, to log in check you email and copy sended code");
-
+                AlertManager.showInformationAlert("Registration", "Successful registration, check your email to get login code!");
+                sceneManager.showScene(SceneType.LOGIN);
             }
             catch (RuntimeException ex) {
                 problem.setStyle("-fx-background-color: #b73634");
@@ -68,6 +72,9 @@ public class RegistrationController implements Initializable{
             }
         });
 
+        cancel.setOnAction(e -> {
+            sceneManager.showScene(SceneType.LOGIN);
+        });
 
 
     }

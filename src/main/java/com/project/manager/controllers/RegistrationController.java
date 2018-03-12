@@ -18,12 +18,22 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This is the class which is responsible for registration window.
+ * This class perform registration by using a "Sign up" button if our information about account
+ * in the text field are correct
+ */
 @Component
 public class RegistrationController implements Initializable{
 
     private RegistrationService registrationService;
     private SceneManager sceneManager;
 
+    /**
+     * This is the constructor of controller with contain reference to the sceneManager for switching scenes
+     * @param registrationService this is reference to registration service with contains all logical
+     *                            methods for registration process
+     */
     @Autowired
     public RegistrationController(RegistrationService registrationService) {
         this.registrationService = registrationService;
@@ -51,6 +61,10 @@ public class RegistrationController implements Initializable{
     @FXML
     private Label problem;
 
+    /**
+     * This method is responsible for listening the controller in window, and making action
+     * implemented in lambdas expression
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

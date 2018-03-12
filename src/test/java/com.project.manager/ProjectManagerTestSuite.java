@@ -10,7 +10,6 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({TestSceneManager.class,
         TestLoginScene.class,
-        TestRegistrationScene.class,
-        RegistrationService.class})
+        TestRegistrationScene.class})
 public class ProjectManagerTestSuite {
 }

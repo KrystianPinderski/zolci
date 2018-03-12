@@ -10,13 +10,14 @@ import com.project.manager.services.RegistrationService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RegistrationServiceTest {
@@ -29,9 +30,6 @@ public class RegistrationServiceTest {
 
     @Test(expected = EmailValidationException.class)
     public void testRegistrationExpectInvalidEmail(){
-        RegistrationService tempRegistrationService = Mockito.spy(registrationService);
-
-        doReturn(false).when(tempRegistrationService).isValidEmailAddress("");
         registrationService.registerUser("", "", "", "");
     }
 
@@ -58,15 +56,18 @@ public class RegistrationServiceTest {
                                         .password(BCryptEncoder.encode("password"))
                                         .isFirstLogin(true).build();
 
+        ArgumentCaptor<UserModel> arg = ArgumentCaptor.forClass(UserModel.class);
+
         when(userRepository.findByUsername("")).thenReturn(null);
         when(userRepository.findByEmail("")).thenReturn(null);
-        when(userRepository.save(userModel)).thenReturn(userModel);
+        when(userRepository.save(userModel)).thenReturn(arg.capture());
 
         registrationService.registerUser(userModel.getUsername(), userModel.getEmail(), "password", "password");
 
-        Assert.assertEquals(userModel.getEmail(), userModel.getEmail());
-        Assert.assertEquals(userModel.getUsername(), userModel.getUsername());
-        Assert.assertTrue(BCryptEncoder.check("password", userModel.getPassword()));
+        verify(userRepository, times(1)).findByUsername(userModel.getUsername());
+        verify(userRepository, times(1)).findByEmail(userModel.getEmail());
+        verify(userRepository, times(1)).save(arg.capture());
+        verifyNoMoreInteractions(userRepository);
     }
 
     @Test
@@ -77,13 +78,13 @@ public class RegistrationServiceTest {
         boolean result4 = registrationService.isValidEmailAddress("email@.pl");
         boolean result5 = registrationService.isValidEmailAddress("email@mail");
 
-        boolean result6 = registrationService.isValidEmailAddress("email@mail.pl");
-
         Assert.assertFalse(result);
         Assert.assertFalse(result2);
         Assert.assertFalse(result3);
         Assert.assertFalse(result4);
         Assert.assertFalse(result5);
+
+        boolean result6 = registrationService.isValidEmailAddress("email@mail.pl");
 
         Assert.assertTrue(result6);
     }

@@ -7,6 +7,7 @@ import com.project.manager.exceptions.EmptyPasswordException;
 import com.project.manager.exceptions.EmptyUsernameException;
 import com.project.manager.exceptions.UserDoesNotExistException;
 import com.project.manager.repositories.UserRepository;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Service
 public class LoginService {
     private UserRepository userRepository;
-
+    private static SessionService sessionService=new SessionService();
     @Autowired
     public LoginService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -38,5 +39,6 @@ public class LoginService {
         if (!result) {
             throw new DifferentPasswordException("Password you entered was incorrect.");
         }
+        sessionService.getData(usermodel);
     }
 }

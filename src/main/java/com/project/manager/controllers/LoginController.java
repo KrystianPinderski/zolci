@@ -80,7 +80,8 @@ public class LoginController implements Initializable {
                 String username = usernameTextField.getText().toString();
                 String passedPassword = passwordPassField.getText().toString();
                 loginService.loginUser(username, passedPassword);
-                System.out.println("user logged in");
+                // MACIEJ TUTAJ WSTAW ODNOSNIK DO OKNA LOGOWANIA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!;
+                // sceneManager.showScene(SceneType.MAIN);
             }
             catch (DifferentPasswordException dpe) {
                 labelErrorPassword.setText(dpe.getMessage());
@@ -94,8 +95,7 @@ public class LoginController implements Initializable {
             }
         });
 
-        labelForgotPassword.setOnMouseClicked(e -> { // MACIEJ TUTAJ WSTAW ODNOSNIK DO OKNA LOGOWANIA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //TO DO - OPENING WINDOW OF FORGOTTEN PASSWORD
+        labelForgotPassword.setOnMouseClicked(e -> {
             //sceneManager.showScene(SceneType.FORGOTPASSWD);
         });
     }

@@ -32,12 +32,10 @@ public class LoginService {
         UserModel usermodel = userRepository.findByUsername(username);
 
         if (!Optional.ofNullable(userRepository.findByUsername(username)).isPresent()) {
-            System.out.println("No user with that login");
             throw new UserDoesNotExistException("There is no user with that username in our service.");
         }
         boolean result = BCryptEncoder.check(password, usermodel.getPassword());
         if (!result) {
-            System.out.println("password doesnt match");
             throw new DifferentPasswordException("Password you entered was incorrect.");
         }
     }

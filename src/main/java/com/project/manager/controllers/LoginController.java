@@ -88,10 +88,13 @@ public class LoginController implements Initializable {
                 labelErrorPassword.setText(dpe.getMessage());
             }
             catch (UserDoesNotExistException udnee) {
+                labelErrorUsername.setVisible(true);
                 labelErrorUsername.setText(udnee.getMessage());
             } catch (EmptyUsernameException eue) {
+                labelErrorUsername.setVisible(true);
                 labelErrorUsername.setText(eue.getMessage());
             } catch (EmptyPasswordException epe){
+                labelErrorUsername.setVisible(true);
                 labelErrorPassword.setText(epe.getMessage());
             }
         });
@@ -103,9 +106,11 @@ public class LoginController implements Initializable {
 
     public void resetUsernameError() {
         labelErrorUsername.setText("");
+        labelErrorUsername.setVisible(false);
     }
 
     public void resetPasswordError() {
         labelErrorPassword.setText("");
+        labelErrorPassword.setVisible(false);
     }
 }

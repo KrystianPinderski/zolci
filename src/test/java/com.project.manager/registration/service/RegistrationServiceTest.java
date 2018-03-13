@@ -30,10 +30,6 @@ public class RegistrationServiceTest {
 
     @Test(expected = EmailValidationException.class)
     public void testRegistrationExpectInvalidEmail(){
-
-        RegistrationService service = Mockito.spy(registrationService);
-        Mockito.when(service.isValidEmailAddress("")).thenReturn(true);
-
         registrationService.registerUser("", "", "", "");
 
         verify(service, times(1)).isValidEmailAddress("");

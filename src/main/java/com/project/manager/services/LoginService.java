@@ -7,7 +7,6 @@ import com.project.manager.exceptions.EmptyPasswordException;
 import com.project.manager.exceptions.EmptyUsernameException;
 import com.project.manager.exceptions.UserDoesNotExistException;
 import com.project.manager.repositories.UserRepository;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +15,11 @@ import java.util.Optional;
 @Service
 public class LoginService {
     private UserRepository userRepository;
-    private static SessionService sessionService=new SessionService();
+    private static SessionService sessionService;
     @Autowired
-    public LoginService(UserRepository userRepository) {
+    public LoginService(UserRepository userRepository, SessionService sessionService) {
         this.userRepository = userRepository;
+        this.sessionService=sessionService;
     }
 
     public void loginUser(String username, String password) {
@@ -39,6 +39,6 @@ public class LoginService {
         if (!result) {
             throw new DifferentPasswordException("Password you entered was incorrect.");
         }
-        sessionService.getData(usermodel);
+        sessionService.setLoggedUser(usermodel);
     }
 }

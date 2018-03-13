@@ -8,14 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class SessionService {
     private UserModel userModel;
-    @Autowired
-    public SessionService() {
 
-    }
-
-    public void getData(UserModel userModel) {
+    public void setLoggedUser(UserModel userModel) {
         this.userModel=userModel;
-        System.out.println(userModel.getEmail());
     }
 
     public String getEmail() {

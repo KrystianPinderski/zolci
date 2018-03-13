@@ -46,7 +46,6 @@ public class RegistrationService {
                 .code(code)
                 .build();
         userRepository.save(userModel);
-
     }
 
     private String generateCode() {

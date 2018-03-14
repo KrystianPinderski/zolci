@@ -1,5 +1,7 @@
 package com.project.manager.controllers;
 
+import com.project.manager.sceneManager.SceneManager;
+import com.project.manager.sceneManager.SceneType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,7 +26,9 @@ public class ProjectPaneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        viewProject.setOnAction(e -> System.out.println(projectId));
-
+        viewProject.setOnAction(e -> {
+            SceneManager sceneManager = SceneManager.getInstance();
+            sceneManager.showInNewWindow(SceneType.PROJECT_VIEW);
+        });
     }
 }

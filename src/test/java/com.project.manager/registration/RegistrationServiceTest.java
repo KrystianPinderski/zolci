@@ -1,4 +1,4 @@
-package com.project.manager.registration.service;
+package com.project.manager.registration;
 
 import com.project.manager.BCryptEncoder;
 import com.project.manager.entities.UserModel;
@@ -30,7 +30,6 @@ public class RegistrationServiceTest {
 
     @Test(expected = EmailValidationException.class)
     public void testRegistrationExpectInvalidEmail(){
-
         RegistrationService service = Mockito.spy(registrationService);
         Mockito.when(service.isValidEmailAddress("")).thenReturn(true);
 

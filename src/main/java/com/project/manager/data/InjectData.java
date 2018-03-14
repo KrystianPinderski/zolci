@@ -26,21 +26,35 @@ public class InjectData {
         this.userRepository = userRepository;
     }
 
-    @PostConstruct
+    //    @PostConstruct
     public void injectData() {
         UserModel userOne = UserModel.builder()
-            .username("user")
-            .code(String.valueOf(new Date().getTime()))
-            .password(BCryptEncoder.encode("password"))
-            .email("user@mail.com")
-            .role(UserRole.USER)
-            .isFirstLogin(false)
-            .projects(new HashSet<>())
-            .build();
+                .username("user")
+                .code(String.valueOf(new Date().getTime()))
+                .password(BCryptEncoder.encode("password"))
+                .email("user@mail.com")
+                .role(UserRole.USER)
+                .isFirstLogin(false)
+                .projects(new HashSet<>())
+                .build();
 
-        Project projectOne = Project.builder().projectName("project1").projectInformation("project1Info").members(new HashSet<>()).build();
-        Project projectTwo = Project.builder().projectName("project2").projectInformation("project2Info").members(new HashSet<>()).build();
-        Project projectThree = Project.builder().projectName("project3").projectInformation("project3Info").members(new HashSet<>()).build();
+        Project projectOne = Project.builder()
+                .projectName("project1")
+                .projectInformation("project1Info")
+                .members(new HashSet<>())
+                .build();
+
+        Project projectTwo = Project.builder()
+                .projectName("project2")
+                .projectInformation("project2Info")
+                .members(new HashSet<>())
+                .build();
+
+        Project projectThree = Project.builder()
+                .projectName("project3")
+                .projectInformation("project3Info")
+                .members(new HashSet<>())
+                .build();
 
         userOne = userRepository.save(userOne);
         projectOne = projectRepository.save(projectOne);
@@ -59,7 +73,6 @@ public class InjectData {
         projectRepository.save(projectOne);
         projectRepository.save(projectTwo);
         projectRepository.save(projectThree);
-
 
     }
 

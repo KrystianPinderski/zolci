@@ -21,6 +21,11 @@ public enum SceneType {
         Integer getId() {
             return 2;
         }
+    }, PROJECT_VIEW {
+        @Override
+        Integer getId() {
+            return 3;
+        }
     };
 
     /**

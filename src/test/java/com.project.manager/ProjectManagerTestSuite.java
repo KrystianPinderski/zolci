@@ -1,10 +1,9 @@
 package com.project.manager;
 
-import com.project.manager.registration.service.RegistrationServiceTest;
+import com.project.manager.registration.RegistrationServiceTest;
 import com.project.manager.sceneManager.TestLoginScene;
 import com.project.manager.sceneManager.TestRegistrationScene;
 import com.project.manager.sceneManager.TestSceneManager;
-import com.project.manager.services.RegistrationService;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

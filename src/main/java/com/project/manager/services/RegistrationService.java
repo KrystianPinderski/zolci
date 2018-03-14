@@ -9,7 +9,6 @@ import com.project.manager.models.UserRole;
 import com.project.manager.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -37,16 +36,15 @@ public class RegistrationService {
         String code = generateCode();
 
         UserModel userModel = UserModel
-                .builder()
-                .email(email)
-                .username(username)
-                .role(UserRole.USER)
-                .password(BCryptEncoder.encode(password))
-                .isFirstLogin(true)
-                .code(code)
-                .build();
+            .builder()
+            .email(email)
+            .username(username)
+            .role(UserRole.USER)
+            .password(BCryptEncoder.encode(password))
+            .isFirstLogin(true)
+            .code(code)
+            .build();
         userRepository.save(userModel);
-
     }
 
     private String generateCode() {

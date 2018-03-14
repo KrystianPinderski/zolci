@@ -12,6 +12,10 @@ import lombok.Setter;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This is the class which is responsible for each pane view with project name.
+ * This class perform display project view after clicked view button on one of user projects on dashboard.
+ */
 @Getter
 @Setter
 public class ProjectPaneController implements Initializable {
@@ -24,6 +28,11 @@ public class ProjectPaneController implements Initializable {
     @FXML
     private Button viewProject;
 
+    /**
+     * Initialization of project view after clicked view button
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewProject.setOnAction(e -> {

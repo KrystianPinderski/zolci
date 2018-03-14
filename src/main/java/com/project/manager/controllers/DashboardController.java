@@ -2,21 +2,21 @@ package com.project.manager.controllers;
 
 import com.project.manager.sceneManager.SceneManager;
 import com.project.manager.sceneManager.SceneType;
-import com.project.manager.services.ProjectService;
-import com.project.manager.services.SessionService;
+import com.project.manager.ui.components.ProjectPaneGenerator;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This is the class which is responsible for dashboard window.
+ * This class perform display dynamically generated view projects of logged user.
+ */
 @Component
 public class DashboardController implements Initializable {
 
@@ -28,47 +28,23 @@ public class DashboardController implements Initializable {
 
     private SceneManager sceneManager;
 
-    private ProjectService projectService;
-
-    private SessionService sessionService;
+    private ProjectPaneGenerator projectPaneGenerator;
 
     @Autowired
-    public DashboardController(ProjectService projectService) {
-        this.projectService = projectService;
-        sceneManager = SceneManager.getInstance();
-        this.sessionService = SessionService.getInstance();
+    public DashboardController(ProjectPaneGenerator projectPaneGenerator) {
+       this.projectPaneGenerator = projectPaneGenerator;
+       this.sceneManager = SceneManager.getInstance();
     }
 
-    public void createPane() {
-        projectService.projectsOfUser().forEach(project -> {
-            try {
-
-                AnchorPane newAnchorPane;
-
-                ProjectPaneController controller = new ProjectPaneController();
-
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/projectPane.fxml"));
-
-                fxmlLoader.setController(controller);
-
-                newAnchorPane = fxmlLoader.load();
-
-                controller.setProjectId(project.getId());
-
-                controller.getProjectName().setText(project.getProjectName());
-
-                projectsArea.getChildren().add(newAnchorPane);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
+    /**
+     * Initialization of Dashboard view with project panes
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        createPane();
+        projectPaneGenerator.createPanes(projectsArea);
 
         backToLogin.setOnAction(e -> {
             sceneManager.showScene(SceneType.LOGIN);

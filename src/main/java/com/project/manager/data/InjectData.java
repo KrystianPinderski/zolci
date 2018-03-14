@@ -13,6 +13,10 @@ import javax.annotation.PostConstruct;
 import java.util.Date;
 import java.util.HashSet;
 
+/**
+ * This is the class which is responsible for injecting test data into database.
+ * This class perform injection of test data into database and relations between tables
+ */
 @Component
 public class InjectData {
 
@@ -26,7 +30,10 @@ public class InjectData {
         this.userRepository = userRepository;
     }
 
-    //    @PostConstruct
+    /**
+     * This method perform injection of test data into database and relations between tables
+     */
+//    @PostConstruct
     public void injectData() {
         UserModel userOne = UserModel.builder()
                 .username("user")

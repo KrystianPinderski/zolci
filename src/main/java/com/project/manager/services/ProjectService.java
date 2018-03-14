@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * This is the class which is responsible for returning list of projects logged user.
+ * This class perform method projectsOfUser which returning list of projects by logged user id
+ */
 @Service
 public class ProjectService {
 
@@ -20,6 +24,10 @@ public class ProjectService {
         this.sessionService = SessionService.getInstance();
     }
 
+    /**
+     * This method perform returning list of projects by logged user id
+     * @return list of projects of logged user by id
+     */
     public List<Project> projectsOfUser() {
         return projectRepository.findByMembers_Id(sessionService.getID());
     }

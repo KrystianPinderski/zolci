@@ -10,7 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.io.IOException;
 import java.util.Optional;
 
-public abstract class CustomSceneImpl implements CustomScene {
+public class CustomSceneImpl implements CustomScene {
     private AnnotationConfigApplicationContext context;
     private Stage primaryStage;
     private Stage newStage;

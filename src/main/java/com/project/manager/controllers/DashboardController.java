@@ -2,6 +2,7 @@ package com.project.manager.controllers;
 
 import com.project.manager.sceneManager.SceneManager;
 import com.project.manager.sceneManager.SceneType;
+import com.project.manager.services.ProjectService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,29 +13,34 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-public class LoginController implements Initializable {
+public class DashboardController implements Initializable {
 
     @FXML
-    private Button register;
+    private Button backToLogin;
 
     @FXML
-    private Button projectList;
+    private Button testButton;
 
     private SceneManager sceneManager;
 
+    private ProjectService projectService;
+
     @Autowired
-    public LoginController() {
+    public DashboardController(ProjectService projectService) {
+        this.projectService = projectService;
         sceneManager = SceneManager.getInstance();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        register.setOnAction(e -> {
-            sceneManager.showScene(SceneType.REGISTRATION);
+
+        backToLogin.setOnAction(e -> {
+            sceneManager.showScene(SceneType.LOGIN);
+
         });
 
-        projectList.setOnAction(e -> {
-            sceneManager.showScene(SceneType.DASHBOARD);
+        testButton.setOnAction(e -> {
+            projectService.projectsOfUser();
         });
     }
 }

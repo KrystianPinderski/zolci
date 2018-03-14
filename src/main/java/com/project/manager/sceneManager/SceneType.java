@@ -16,6 +16,11 @@ public enum SceneType {
         Integer getId() {
             return 1;
         }
+    }, DASHBOARD {
+        @Override
+        Integer getId() {
+            return 2;
+        }
     };
 
     /**

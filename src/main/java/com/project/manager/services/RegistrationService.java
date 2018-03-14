@@ -26,7 +26,7 @@ public class RegistrationService {
     }
 
     public void registerUser(String username, String email, String password, String repeatPassword) {
-        if (!isValidEmailAddress(email)) throw new EmailValidationException();
+        if (!isValidEmailAddress(email)) throw new EmailValidationException("Your email is invalid!");
 
         if (Optional.ofNullable(userRepository.findByUsername(username)).isPresent()
                 || Optional.ofNullable(userRepository.findByEmail(email)).isPresent())

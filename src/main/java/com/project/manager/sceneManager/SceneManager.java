@@ -1,5 +1,6 @@
 package com.project.manager.sceneManager;
 
+import com.project.manager.sceneManager.scenes.DashboardScene;
 import com.project.manager.sceneManager.scenes.LoginScene;
 import com.project.manager.sceneManager.scenes.RegistrationScene;
 import com.project.manager.sceneManager.scenes.system.CustomScene;
@@ -17,6 +18,7 @@ public class SceneManager {
     private Stage primaryStage;
     private LoginScene loginScene;
     private RegistrationScene registrationScene;
+    private DashboardScene dashboardScene;
     private HashMap<Integer, CustomScene> scenes;
 
     /**
@@ -54,11 +56,13 @@ public class SceneManager {
     private void initializeScenes() {
         this.loginScene = new LoginScene(primaryStage);
         this.registrationScene = new RegistrationScene(primaryStage);
+        this.dashboardScene = new DashboardScene(primaryStage);
 
         scenes = new HashMap<Integer, CustomScene>() {
             {
                 put(SceneType.LOGIN.getId(), loginScene);
                 put(SceneType.REGISTRATION.getId(), registrationScene);
+                put(SceneType.DASHBOARD.getId(), dashboardScene);
             }
         };
     }

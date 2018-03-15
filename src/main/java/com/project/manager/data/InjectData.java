@@ -33,7 +33,7 @@ public class InjectData {
     /**
      * This method perform injection of test data into database and relations between tables
      */
-//   @PostConstruct
+   @PostConstruct
     public void injectData() {
         UserModel userOne = UserModel.builder()
                 .username("user")

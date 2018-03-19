@@ -26,10 +26,16 @@ public enum SceneType {
         Integer getId() {
             return 3;
         }
+    }, ADMIN_DASHBOARD {
+        @Override
+        Integer getId() {
+            return 4;
+        }
     };
 
     /**
      * Return unique value of scene, used in changing scenes.
+     *
      * @return integer value
      */
     abstract Integer getId();

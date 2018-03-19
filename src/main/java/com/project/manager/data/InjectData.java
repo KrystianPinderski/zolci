@@ -33,7 +33,7 @@ public class InjectData {
     /**
      * This method perform injection of test data into database and relations between tables
      */
-   @PostConstruct
+//   @PostConstruct
     public void injectData() {
         UserModel userOne = UserModel.builder()
                 .username("user")
@@ -81,6 +81,16 @@ public class InjectData {
         projectRepository.save(projectTwo);
         projectRepository.save(projectThree);
 
+        UserModel admin = UserModel
+                .builder()
+                .username("admin")
+                .password(BCryptEncoder.encode("admin"))
+                .email("admin@mail.com")
+                .role(UserRole.ADMIN)
+                .isFirstLogin(false)
+                .code(String.valueOf(new Date().getTime()))
+                .build();
+        userRepository.save(admin);
     }
 
 }

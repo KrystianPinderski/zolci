@@ -41,7 +41,7 @@ public class RegistrationService {
             .username(username)
             .role(UserRole.USER)
             .password(BCryptEncoder.encode(password))
-            .locked(true)
+            .isLocked(true)
             .unlockCode(code)
             .build();
         userRepository.save(userModel);

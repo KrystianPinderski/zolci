@@ -32,7 +32,7 @@ public class LoginServiceTest {
                 .username("username")
                 .email("username@gmail.com")
                 .password(BCryptEncoder.encode("password"))
-                .locked(true).build();
+                .isLocked(true).build();
         when(userRepository.findByUsername("username")).thenReturn(userModel);
         loginService.loginUser("username",userModel.getPassword());
     }
@@ -43,7 +43,7 @@ public class LoginServiceTest {
                 .username("username")
                 .email("username@gmail.com")
                 .password("")
-                .locked(true).build();
+                .isLocked(true).build();
         when(userRepository.findByUsername("username")).thenReturn(null);
         loginService.loginUser("usernameasd","123");
     }
@@ -54,7 +54,7 @@ public class LoginServiceTest {
                 .username("username")
                 .email("username@gmail.com")
                 .password("")
-                .locked(true).build();
+                .isLocked(true).build();
         when(userRepository.findByUsername("username")).thenReturn(null);
         loginService.loginUser("usernameasd","");
     }
@@ -65,7 +65,7 @@ public class LoginServiceTest {
                 .username("username")
                 .email("username@gmail.com")
                 .password(BCryptEncoder.encode("123"))
-                .locked(true).build();
+                .isLocked(true).build();
         when(userRepository.findByUsername("username")).thenReturn(userModel);
         loginService.loginUser("","123");
     }
@@ -76,7 +76,7 @@ public class LoginServiceTest {
                 .username("username")
                 .email("username@gmail.com")
                 .password(BCryptEncoder.encode("123"))
-                .locked(true).build();
+                .isLocked(true).build();
         when(userRepository.findByUsername("username")).thenReturn(userModel);
         loginService.loginUser("username","123");
     }

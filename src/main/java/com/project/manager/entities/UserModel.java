@@ -43,7 +43,7 @@ public class UserModel {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    private boolean locked;
+    private boolean isLocked;
 
     @NotNull
     private String unlockCode;

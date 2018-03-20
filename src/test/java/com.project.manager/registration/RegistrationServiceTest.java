@@ -59,7 +59,7 @@ public class RegistrationServiceTest {
                                         .username("username")
                                         .email("username@mail.com")
                                         .password(BCryptEncoder.encode("password"))
-                                        .locked(true).build();
+                                        .isLocked(true).build();
 
         ArgumentCaptor<UserModel> arg = ArgumentCaptor.forClass(UserModel.class);
 

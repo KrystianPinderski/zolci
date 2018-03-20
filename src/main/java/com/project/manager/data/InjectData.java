@@ -79,36 +79,36 @@ public class InjectData {
                 .clients(new HashSet<>())
                 .build();
 
-        Project projectTwo = Project.builder()
-                .projectName("project2")
-                .projectInformation("project2Info")
-                .members(new HashSet<>())
-                .build();
-
-        Project projectThree = Project.builder()
-                .projectName("project3")
-                .projectInformation("project3Info")
-                .members(new HashSet<>())
-                .build();
+//        Project projectTwo = Project.builder()
+//                .projectName("project2")
+//                .projectInformation("project2Info")
+//                .members(new HashSet<>())
+//                .build();
+//
+//        Project projectThree = Project.builder()
+//                .projectName("project3")
+//                .projectInformation("project3Info")
+//                .members(new HashSet<>())
+//                .build();
 
         userOne = userRepository.save(userOne);
         client = userRepository.save(client);
         manager = userRepository.save(manager);
         projectOne = projectRepository.save(projectOne);
-        projectTwo = projectRepository.save(projectTwo);
-        projectThree = projectRepository.save(projectThree);
+//        projectTwo = projectRepository.save(projectTwo);
+//        projectThree = projectRepository.save(projectThree);
 
         userOne.getProjectsAsUser().add(projectOne);
-        userOne.getProjectsAsUser().add(projectTwo);
-        userOne.getProjectsAsUser().add(projectThree);
+//        userOne.getProjectsAsUser().add(projectTwo);
+//        userOne.getProjectsAsUser().add(projectThree);
 
         client.getProjectsAsClient().add(projectOne);
 
         manager.getProjectsAsManager().add(projectOne);
 
         projectOne.getMembers().add(userOne);
-        projectTwo.getMembers().add(userOne);
-        projectThree.getMembers().add(userOne);
+//        projectTwo.getMembers().add(userOne);
+//        projectThree.getMembers().add(userOne);
 
         projectOne.getClients().add(client);
 
@@ -118,8 +118,8 @@ public class InjectData {
         userRepository.save(client);
         userRepository.save(manager);
         projectRepository.save(projectOne);
-        projectRepository.save(projectTwo);
-        projectRepository.save(projectThree);
+//        projectRepository.save(projectTwo);
+//        projectRepository.save(projectThree);
 
         UserModel admin = UserModel
                 .builder()

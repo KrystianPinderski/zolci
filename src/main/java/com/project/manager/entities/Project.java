@@ -31,11 +31,12 @@ public class Project {
 
     @ManyToOne
     @JoinColumn(name = "MANAGER_ID")
+    @NotNull
     private UserModel manager;
 
-    @ManyToMany(mappedBy = "projectsAsClient")//, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "projectsAsClient", fetch = FetchType.EAGER)//, fetch = FetchType.EAGER)
     private Set<UserModel> clients;
 
-    @ManyToMany(mappedBy = "projectsAsUser")//, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "projectsAsUser", fetch = FetchType.EAGER)//, fetch = FetchType.EAGER)
     private Set<UserModel> members;
 }

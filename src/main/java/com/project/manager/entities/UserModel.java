@@ -56,7 +56,7 @@ public class UserModel {
     @Size(min = 1)
     private String lastName;
 
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager", fetch = FetchType.EAGER)
     private Set<Project> projectsAsManager;
 
     @ManyToMany

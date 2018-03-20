@@ -12,7 +12,6 @@ import java.util.HashMap;
  * Contains all methods to changing scenes in primaryStage and opening new ones.
  * SceneManager is singleton, instance cen be accessible thought getInstance() method.
  */
-@Service
 public class SceneManager {
     private static SceneManager instance;
     private Stage primaryStage;

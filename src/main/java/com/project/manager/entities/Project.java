@@ -29,6 +29,13 @@ public class Project {
     @NotEmpty
     private String projectInformation;
 
-    @ManyToMany(mappedBy = "projects")//, fetch = FetchType.EAGER)
-    private Set<UserModel> members = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "MANAGER_ID")
+    private UserModel manager;
+
+    @ManyToMany(mappedBy = "projectsAsClient")//, fetch = FetchType.EAGER)
+    private Set<UserModel> clients;
+
+    @ManyToMany(mappedBy = "projectsAsUser")//, fetch = FetchType.EAGER)
+    private Set<UserModel> members;
 }

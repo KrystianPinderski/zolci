@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -47,12 +48,31 @@ public class UserModel {
     @NotNull
     private String code;
 
+    @NotNull
+    @Size(min = 1)
+    private String firstName;
+
+    @NotNull
+    @Size(min = 1)
+    private String lastName;
+
+    @OneToMany(mappedBy = "manager")
+    private Set<Project> projectsAsManager;
+
+    @ManyToMany
+    @JoinTable(
+            name = "CLIENT_PROJECT",
+            joinColumns = { @JoinColumn(name = "client_id") },
+            inverseJoinColumns = { @JoinColumn(name = "project_id") }
+    )
+    private Set<Project> projectsAsClient;
+
     @ManyToMany
     @JoinTable(
         name = "USER_PROJECT",
         joinColumns = { @JoinColumn(name = "user_id") },
         inverseJoinColumns = { @JoinColumn(name = "project_id") }
     )
-    private Set<Project> projects = new HashSet<>();
+    private Set<Project> projectsAsUser;
 }
 

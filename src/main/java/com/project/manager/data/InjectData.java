@@ -42,13 +42,41 @@ public class InjectData {
                 .email("user@mail.com")
                 .role(UserRole.USER)
                 .isFirstLogin(false)
-                .projects(new HashSet<>())
+                .projectsAsUser(new HashSet<>())
+                .firstName("Adam")
+                .lastName("Spadam")
                 .build();
+
+        UserModel client = UserModel.builder()
+                .username("client")
+                .code(String.valueOf(new Date().getTime()))
+                .password(BCryptEncoder.encode("password"))
+                .email("client@mail.com")
+                .role(UserRole.CLIENT)
+                .isFirstLogin(false)
+                .projectsAsClient(new HashSet<>())
+                .firstName("Benek")
+                .lastName("Bebenek")
+                .build();
+
+       UserModel manager = UserModel.builder()
+               .username("manager")
+               .code(String.valueOf(new Date().getTime()))
+               .password(BCryptEncoder.encode("password"))
+               .email("manager@mail.com")
+               .role(UserRole.USER)
+               .isFirstLogin(false)
+               .projectsAsClient(new HashSet<>())
+               .firstName("Edward")
+               .lastName("Oncki")
+               .projectsAsManager(new HashSet<>())
+               .build();
 
         Project projectOne = Project.builder()
                 .projectName("project1")
                 .projectInformation("project1Info")
                 .members(new HashSet<>())
+                .clients(new HashSet<>())
                 .build();
 
         Project projectTwo = Project.builder()
@@ -64,19 +92,31 @@ public class InjectData {
                 .build();
 
         userOne = userRepository.save(userOne);
+        client = userRepository.save(client);
+        manager = userRepository.save(manager);
         projectOne = projectRepository.save(projectOne);
         projectTwo = projectRepository.save(projectTwo);
         projectThree = projectRepository.save(projectThree);
 
-        userOne.getProjects().add(projectOne);
-        userOne.getProjects().add(projectTwo);
-        userOne.getProjects().add(projectThree);
+        userOne.getProjectsAsUser().add(projectOne);
+        userOne.getProjectsAsUser().add(projectTwo);
+        userOne.getProjectsAsUser().add(projectThree);
+
+        client.getProjectsAsClient().add(projectOne);
+
+        manager.getProjectsAsManager().add(projectOne);
 
         projectOne.getMembers().add(userOne);
         projectTwo.getMembers().add(userOne);
         projectThree.getMembers().add(userOne);
 
+        projectOne.getClients().add(client);
+
+        projectOne.setManager(manager);
+
         userRepository.save(userOne);
+        userRepository.save(client);
+        userRepository.save(manager);
         projectRepository.save(projectOne);
         projectRepository.save(projectTwo);
         projectRepository.save(projectThree);

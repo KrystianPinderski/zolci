@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.manager.controllers.AdminDashboardController">
    <children>
-      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutY="31.0" prefHeight="369.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="projectsTab" text="Projects">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="projectTable" layoutX="14.0" layoutY="41.0" prefHeight="212.0" prefWidth="572.0" />
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab fx:id="usersTab" text="Users">
@@ -28,5 +31,6 @@
             </Tab>
         </tabs>
       </TabPane>
+      <Button fx:id="logoutButton" layoutX="534.0" layoutY="2.0" mnemonicParsing="false" text="Logout" />
    </children>
 </AnchorPane>

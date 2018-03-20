@@ -37,11 +37,11 @@ public class InjectData {
     public void injectData() {
         UserModel userOne = UserModel.builder()
                 .username("user")
-                .code(String.valueOf(new Date().getTime()))
+                .unlockCode(String.valueOf(new Date().getTime()))
                 .password(BCryptEncoder.encode("password"))
                 .email("user@mail.com")
                 .role(UserRole.USER)
-                .isFirstLogin(false)
+                .locked(false)
                 .projectsAsUser(new HashSet<>())
                 .firstName("Adam")
                 .lastName("Spadam")
@@ -49,11 +49,11 @@ public class InjectData {
 
         UserModel client = UserModel.builder()
                 .username("client")
-                .code(String.valueOf(new Date().getTime()))
+                .unlockCode(String.valueOf(new Date().getTime()))
                 .password(BCryptEncoder.encode("password"))
                 .email("client@mail.com")
                 .role(UserRole.CLIENT)
-                .isFirstLogin(false)
+                .locked(false)
                 .projectsAsClient(new HashSet<>())
                 .firstName("Benek")
                 .lastName("Bebenek")
@@ -61,11 +61,11 @@ public class InjectData {
 
        UserModel manager = UserModel.builder()
                .username("manager")
-               .code(String.valueOf(new Date().getTime()))
+               .unlockCode(String.valueOf(new Date().getTime()))
                .password(BCryptEncoder.encode("password"))
                .email("manager@mail.com")
                .role(UserRole.USER)
-               .isFirstLogin(false)
+               .locked(false)
                .projectsAsClient(new HashSet<>())
                .firstName("Edward")
                .lastName("Oncki")
@@ -127,8 +127,8 @@ public class InjectData {
                 .password(BCryptEncoder.encode("admin"))
                 .email("admin@mail.com")
                 .role(UserRole.ADMIN)
-                .isFirstLogin(false)
-                .code(String.valueOf(new Date().getTime()))
+                .locked(false)
+                .unlockCode(String.valueOf(new Date().getTime()))
                 .build();
         userRepository.save(admin);
     }

@@ -43,10 +43,10 @@ public class UserModel {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    private boolean isFirstLogin;
+    private boolean locked;
 
     @NotNull
-    private String code;
+    private String unlockCode;
 
     @NotNull
     @Size(min = 1)

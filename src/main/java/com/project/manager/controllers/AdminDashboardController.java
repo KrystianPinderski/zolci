@@ -1,9 +1,7 @@
 package com.project.manager.controllers;
 
 import com.jfoenix.controls.JFXTreeTableView;
-import com.project.manager.entities.Project;
 import com.project.manager.models.ProjectDTO;
-import com.project.manager.services.AdminService;
 import com.project.manager.ui.components.AdminDashboardTablesComponent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,22 +11,17 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.print.attribute.standard.PDLOverrideSupported;
-import javax.print.attribute.standard.PresentationDirection;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 @Component
 @Getter
 public class AdminDashboardController implements Initializable {
 
-    private AdminService adminService;
     private AdminDashboardTablesComponent adminDashboardTablesComponent;
 
     @Autowired
-    public AdminDashboardController(AdminService adminService, AdminDashboardTablesComponent adminDashboardTablesComponent) {
-        this.adminService = adminService;
+    public AdminDashboardController(AdminDashboardTablesComponent adminDashboardTablesComponent) {
         this.adminDashboardTablesComponent = adminDashboardTablesComponent;
     }
 
@@ -49,7 +42,6 @@ public class AdminDashboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<Project> projects = adminService.getAllProjects();
-        adminDashboardTablesComponent.generateProjectTableView(projects);
+        adminDashboardTablesComponent.generateProjectTableView(this);
     }
 }

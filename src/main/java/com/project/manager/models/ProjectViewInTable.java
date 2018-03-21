@@ -1,6 +1,7 @@
 package com.project.manager.models;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.project.manager.entities.Project;
 import javafx.scene.image.Image;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Builder
-public class ProjectDTO extends RecursiveTreeObject<ProjectDTO> {
+public class ProjectViewInTable extends RecursiveTreeObject<ProjectViewInTable> {
 
     private Long id;
 
@@ -26,21 +27,24 @@ public class ProjectDTO extends RecursiveTreeObject<ProjectDTO> {
 
     private JFXButton delete;
 
-    public static ProjectDTO convert(Project project) {
-        return ProjectDTO.builder()
+    private JFXCheckBox check;
+
+    public static ProjectViewInTable convert(Project project) {
+        return ProjectViewInTable.builder()
                 .id(project.getId())
                 .projectName(project.getProjectName())
                 .firstAndLastName(project.getManager().getFirstName() + " " + project.getManager().getLastName())
                 .countOfMembers(project.getMembers().size())
                 .countOfClients(project.getClients().size())
+                .check(new JFXCheckBox())
                 .build();
     }
 
-    public ProjectDTO generateDelButton(ProjectDTO projectDTO) {
+    public ProjectViewInTable generateDelButton(ProjectViewInTable projectViewInTable) {
         JFXButton del = new JFXButton();
         Image image = new Image(getClass().getResourceAsStream("/images/delete.png"));
         del.setGraphic(new ImageView(image));
-        projectDTO.setDelete(del);
-        return projectDTO;
+        projectViewInTable.setDelete(del);
+        return projectViewInTable;
     }
 }

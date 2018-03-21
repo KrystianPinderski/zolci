@@ -8,6 +8,6 @@ public class AdminDashboardScene extends CustomSceneImpl {
     public AdminDashboardScene(Stage stage) {
         super(stage);
         super.setWindowTitle("Admin Dashboard");
-        super.setPathToFXML("/fxml/admindashboard.fxml");
+        super.setPathToFXML("/fxml/adminDashboard.fxml");
     }
 }

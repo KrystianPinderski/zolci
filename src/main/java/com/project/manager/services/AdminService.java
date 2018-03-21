@@ -20,4 +20,11 @@ public class AdminService {
     public List<Project> getAllProjects() {
         return projectRepository.findAll();
     }
+
+    /**
+     * To implement
+     * @param id
+     */
+    public void deleteProject(Long id) {
+    }
 }

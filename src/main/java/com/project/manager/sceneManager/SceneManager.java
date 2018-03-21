@@ -20,6 +20,7 @@ public class SceneManager {
     private DashboardScene dashboardScene;
     private ProjectViewScene projectViewScene;
     private AdminDashboardScene adminDashboardScene;
+    private AdminUpdateProjectScene adminUpdateProjectScene;
     private HashMap<Integer, CustomScene> scenes;
 
     /**
@@ -60,6 +61,7 @@ public class SceneManager {
         this.dashboardScene = new DashboardScene(primaryStage);
         this.projectViewScene = new ProjectViewScene(primaryStage);
         this.adminDashboardScene = new AdminDashboardScene(primaryStage);
+        this.adminUpdateProjectScene = new AdminUpdateProjectScene(primaryStage);
 
         scenes = new HashMap<Integer, CustomScene>() {
             {
@@ -68,6 +70,7 @@ public class SceneManager {
                 put(SceneType.DASHBOARD.getId(), dashboardScene);
                 put(SceneType.PROJECT_VIEW.getId(), projectViewScene);
                 put(SceneType.ADMIN_DASHBOARD.getId(), adminDashboardScene);
+                put(SceneType.ADMIN_UPDATE_PROJECT.getId(), adminUpdateProjectScene);
             }
         };
     }

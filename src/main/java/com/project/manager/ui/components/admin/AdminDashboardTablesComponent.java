@@ -1,4 +1,4 @@
-package com.project.manager.ui.components;
+package com.project.manager.ui.components.admin;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.RecursiveTreeItem;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Component
 public class AdminDashboardTablesComponent {
 
-    private ObservableList projectDTOObservableList;
+    public static ObservableList<ProjectViewInTable> projectDTOObservableList;
 
     private AdminService adminService;
 
@@ -32,13 +32,14 @@ public class AdminDashboardTablesComponent {
     }
 
     public void generateProjectTableView(AdminDashboardController adminDashboardController) {
+        adminDashboardController.getProjectTable().setSelectionModel(null);
          List<Project> projects = adminService.getAllProjects();
          projectDTOObservableList = FXCollections
                 .observableList(projects
                         .stream()
                         .map(ProjectViewInTable::convert)
                         .map(projectViewInTable -> projectViewInTable.generateDelButton(projectViewInTable))
-                        .peek(projectViewInTable -> projectViewInTable.getDelete().setOnAction(e -> deleteProject(projectViewInTable.getId())))
+                        .peek(projectViewInTable -> projectViewInTable.getDelete().setOnAction(e -> adminService.deleteProject(projectViewInTable.getId())))
                         .collect(Collectors.toList()));
 
 
@@ -64,13 +65,5 @@ public class AdminDashboardTablesComponent {
 
         adminDashboardController.getProjectTable().setRoot(item);
         adminDashboardController.getProjectTable().setShowRoot(false);
-    }
-
-    /**
-     * To implemented
-     * @param id
-     */
-    private void deleteProject(Long id) {
-        System.out.println(id);
     }
 }

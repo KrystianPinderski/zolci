@@ -31,6 +31,11 @@ public enum SceneType {
         Integer getId() {
             return 4;
         }
+    }, ADMIN_UPDATE_PROJECT {
+        @Override
+        Integer getId() {
+            return 5;
+        }
     };
 
     /**

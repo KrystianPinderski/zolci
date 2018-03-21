@@ -3,10 +3,11 @@ package com.project.manager.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.project.manager.models.ProjectViewInTable;
-import com.project.manager.ui.components.AdminDashboardTablesComponent;
+import com.project.manager.sceneManager.SceneManager;
+import com.project.manager.sceneManager.SceneType;
+import com.project.manager.ui.components.admin.AdminDashboardTablesComponent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,12 @@ import java.util.ResourceBundle;
 public class AdminDashboardController implements Initializable {
 
     private AdminDashboardTablesComponent adminDashboardTablesComponent;
+    private SceneManager sceneManager;
 
     @Autowired
     public AdminDashboardController(AdminDashboardTablesComponent adminDashboardTablesComponent) {
         this.adminDashboardTablesComponent = adminDashboardTablesComponent;
+        this.sceneManager = SceneManager.getInstance();
     }
 
     @FXML
@@ -42,16 +45,17 @@ public class AdminDashboardController implements Initializable {
     private JFXButton logout;
 
     @FXML
-    private JFXButton showButton;
+    private JFXButton updateProject;
 
     @FXML
-    private JFXButton updateButton;
+    private JFXButton deleteProject;
 
     @FXML
-    private JFXButton deleteButton;
+    private JFXButton showProject;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        updateProject.setOnAction(e -> sceneManager.showInNewWindow(SceneType.ADMIN_UPDATE_PROJECT));
         adminDashboardTablesComponent.generateProjectTableView(this);
     }
 }

@@ -17,22 +17,22 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <JFXButton fx:id="showProject" buttonType="RAISED" layoutX="615.0" layoutY="14.0" minWidth="75.0" ripplerFill="#70d739" style="-fx-background-color: #53bb1b;" text="Show">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="updateProject" buttonType="RAISED" layoutX="615.0" layoutY="59.0" minWidth="75.0" ripplerFill="#f0d44f" style="-fx-background-color: #f0ad4e;" text="Update">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="deleteProject" buttonType="RAISED" layoutX="615.0" layoutY="105.0" minWidth="75.0" ripplerFill="#e8706e" style="-fx-background-color: #d9534f;" text="Delete">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
                         <JFXTreeTableView fx:id="projectTable" layoutX="9.0" layoutY="14.0" prefHeight="399.0" prefWidth="580.0" />
-                        <JFXButton fx:id="showProject" buttonType="RAISED" layoutX="614.0" layoutY="29.0" minWidth="75.0" ripplerFill="#70d739" style="-fx-background-color: #53bb1b;" text="Show">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </JFXButton>
-                        <JFXButton fx:id="updateProject" buttonType="RAISED" layoutX="614.0" layoutY="76.0" minWidth="75.0" ripplerFill="#f0d44f" style="-fx-background-color: #f0ad4e;" text="Update">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </JFXButton>
-                        <JFXButton fx:id="deleteProject" buttonType="RAISED" layoutX="614.0" layoutY="125.0" minWidth="75.0" ripplerFill="#e8706e" style="-fx-background-color: #d9534f;" text="Delete">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </JFXButton>
                         <JFXButton fx:id="logout" buttonType="RAISED" layoutX="620.0" layoutY="380.0" ripplerFill="#56a4f2" style="-fx-background-color: #2b75c5;" text="Logout">
                            <font>
                               <Font size="14.0" />

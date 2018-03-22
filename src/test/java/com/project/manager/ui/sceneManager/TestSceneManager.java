@@ -1,4 +1,4 @@
-package com.project.manager.sceneManager;
+package com.project.manager.ui.sceneManager;
 
 import com.project.manager.JavaFXThreadingRule;
 import javafx.stage.Stage;

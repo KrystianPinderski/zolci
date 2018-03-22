@@ -31,5 +31,4 @@ public class ProjectService {
     public List<Project> projectsOfUser() {
         return projectRepository.findByMembers_Id(sessionService.getID());
     }
-
 }

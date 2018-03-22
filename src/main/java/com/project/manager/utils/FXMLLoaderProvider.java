@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.project.manager;
+package com.project.manager.utils;
 
 import javafx.fxml.FXMLLoader;
 import org.springframework.beans.factory.annotation.Autowired;

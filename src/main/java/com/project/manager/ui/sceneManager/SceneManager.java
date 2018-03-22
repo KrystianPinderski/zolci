@@ -1,12 +1,8 @@
-package com.project.manager.sceneManager;
+package com.project.manager.ui.sceneManager;
 
-import com.project.manager.sceneManager.scenes.DashboardScene;
-import com.project.manager.sceneManager.scenes.LoginScene;
-import com.project.manager.sceneManager.scenes.ProjectViewScene;
-import com.project.manager.sceneManager.scenes.RegistrationScene;
-import com.project.manager.sceneManager.scenes.system.CustomScene;
+import com.project.manager.ui.sceneManager.scenes.*;
+import com.project.manager.ui.sceneManager.scenes.system.CustomScene;
 import javafx.stage.Stage;
-import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
@@ -15,14 +11,14 @@ import java.util.HashMap;
  * Contains all methods to changing scenes in primaryStage and opening new ones.
  * SceneManager is singleton, instance cen be accessible thought getInstance() method.
  */
-@Service
 public class SceneManager {
     private static SceneManager instance;
     private Stage primaryStage;
     private LoginScene loginScene;
     private RegistrationScene registrationScene;
     private DashboardScene dashboardScene;
-    private ProjectViewScene projectViewScene;
+    private ManagerProjectView managerProjectView;
+    private EmployeeProjectView employeeProjectView;
     private HashMap<Integer, CustomScene> scenes;
 
     /**
@@ -61,14 +57,16 @@ public class SceneManager {
         this.loginScene = new LoginScene(primaryStage);
         this.registrationScene = new RegistrationScene(primaryStage);
         this.dashboardScene = new DashboardScene(primaryStage);
-        this.projectViewScene = new ProjectViewScene(primaryStage);
+        this.managerProjectView = new ManagerProjectView(primaryStage);
+        this.employeeProjectView = new EmployeeProjectView(primaryStage);
 
         scenes = new HashMap<Integer, CustomScene>() {
             {
                 put(SceneType.LOGIN.getId(), loginScene);
                 put(SceneType.REGISTRATION.getId(), registrationScene);
                 put(SceneType.DASHBOARD.getId(), dashboardScene);
-                put(SceneType.PROJECT_VIEW.getId(), projectViewScene);
+                put(SceneType.MANAGER_PROJECT_VIEW.getId(), managerProjectView);
+                put(SceneType.EMPLOYEE_PROJECT_VIEW.getId(), employeeProjectView);
             }
         };
     }

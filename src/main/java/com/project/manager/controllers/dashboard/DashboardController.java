@@ -1,7 +1,7 @@
-package com.project.manager.controllers;
+package com.project.manager.controllers.dashboard;
 
-import com.project.manager.sceneManager.SceneManager;
-import com.project.manager.sceneManager.SceneType;
+import com.project.manager.ui.sceneManager.SceneManager;
+import com.project.manager.ui.sceneManager.SceneType;
 import com.project.manager.ui.components.ProjectPaneGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,28 +27,26 @@ public class DashboardController implements Initializable {
     private VBox projectsArea;
 
     private SceneManager sceneManager;
-
     private ProjectPaneGenerator projectPaneGenerator;
 
     @Autowired
     public DashboardController(ProjectPaneGenerator projectPaneGenerator) {
-       this.projectPaneGenerator = projectPaneGenerator;
-       this.sceneManager = SceneManager.getInstance();
+        this.projectPaneGenerator = projectPaneGenerator;
+        this.sceneManager = SceneManager.getInstance();
     }
 
     /**
      * Initialization of Dashboard view with project panes
+     *
      * @param location
      * @param resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         projectPaneGenerator.createPanes(projectsArea);
 
         backToLogin.setOnAction(e -> {
             sceneManager.showScene(SceneType.LOGIN);
         });
-
     }
 }

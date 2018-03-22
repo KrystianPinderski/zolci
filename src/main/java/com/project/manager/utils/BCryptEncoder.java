@@ -1,4 +1,4 @@
-package com.project.manager;
+package com.project.manager.utils;
 
 
 import org.mindrot.jbcrypt.BCrypt;

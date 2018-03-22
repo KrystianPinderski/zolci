@@ -1,6 +1,6 @@
-package com.project.manager.sceneManager.scenes.system;
+package com.project.manager.ui.sceneManager.scenes.system;
 
-import com.project.manager.FXMLLoaderProvider;
+import com.project.manager.utils.FXMLLoaderProvider;
 import com.project.manager.config.SpringConfig;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,9 +28,9 @@ public class CustomSceneImpl implements CustomScene {
     private Scene createNewScene() {
         try {
             FXMLLoader loader = context.getBean(FXMLLoaderProvider.class).getLoader(pathToFXML);
-            if(Optional.ofNullable(width).isPresent() && Optional.ofNullable(height).isPresent()) {
+            if (Optional.ofNullable(width).isPresent() && Optional.ofNullable(height).isPresent()) {
                 return new Scene(loader.load(), this.width, this.height);
-            } else  {
+            } else {
                 return new Scene(loader.load());
             }
         } catch (IOException e) {
@@ -81,11 +81,9 @@ public class CustomSceneImpl implements CustomScene {
         this.pathToFXML = pathToFXML;
     }
 
-
     protected void setWidth(Integer width) {
         this.width = width;
     }
-
 
     protected void setHeight(Integer height) {
         this.height = height;

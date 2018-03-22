@@ -1,6 +1,6 @@
 package com.project.manager.ui.components;
 
-import com.project.manager.controllers.ProjectPaneController;
+import com.project.manager.controllers.dashboard.ProjectPaneController;
 import com.project.manager.services.ProjectService;
 import com.project.manager.services.SessionService;
 import javafx.fxml.FXMLLoader;
@@ -19,9 +19,7 @@ import java.io.IOException;
 public class ProjectPaneGenerator {
 
     private ProjectService projectService;
-
     private SessionService sessionService;
-
 
     @Autowired
     public ProjectPaneGenerator(ProjectService projectService) {
@@ -37,23 +35,14 @@ public class ProjectPaneGenerator {
     public void createPanes(VBox projectsArea) {
         projectService.projectsOfUser().forEach(project -> {
             try {
-
                 AnchorPane newAnchorPane;
-
                 ProjectPaneController controller = new ProjectPaneController();
-
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/projectPane.fxml"));
-
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/projectPaneComponent.fxml"));
                 fxmlLoader.setController(controller);
-
                 newAnchorPane = fxmlLoader.load();
-
-                controller.setProjectId(project.getId());
-
+                controller.setProject(project);
                 controller.getProjectName().setText(project.getProjectName());
-
                 projectsArea.getChildren().add(newAnchorPane);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }

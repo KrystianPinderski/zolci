@@ -1,6 +1,6 @@
 package com.project.manager.services;
 
-import com.project.manager.BCryptEncoder;
+import com.project.manager.utils.BCryptEncoder;
 import com.project.manager.entities.UserModel;
 import com.project.manager.exceptions.DifferentPasswordException;
 import com.project.manager.exceptions.EmailValidationException;
@@ -42,7 +42,7 @@ public class RegistrationService {
             .role(UserRole.USER)
             .password(BCryptEncoder.encode(password))
             .isFirstLogin(true)
-            .code(code)
+            .activationCode(code)
             .build();
         userRepository.save(userModel);
     }

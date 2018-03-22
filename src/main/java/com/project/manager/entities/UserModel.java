@@ -3,7 +3,6 @@ package com.project.manager.entities;
 import com.project.manager.models.UserRole;
 import lombok.*;
 import org.hibernate.validator.constraints.Email;
-import org.springframework.core.annotation.AliasFor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -23,6 +22,7 @@ public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
     @NotNull
@@ -45,7 +45,7 @@ public class UserModel {
     private boolean isFirstLogin;
 
     @NotNull
-    private String code;
+    private String activationCode;
 
     @ManyToMany
     @JoinTable(

@@ -1,6 +1,6 @@
-package com.project.manager.sceneManager.scenes;
+package com.project.manager.ui.sceneManager.scenes;
 
-import com.project.manager.sceneManager.scenes.system.CustomSceneImpl;
+import com.project.manager.ui.sceneManager.scenes.system.CustomSceneImpl;
 import javafx.stage.Stage;
 
 /**

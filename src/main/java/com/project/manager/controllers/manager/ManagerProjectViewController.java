@@ -1,6 +1,10 @@
-package com.project.manager.controllers;
+package com.project.manager.controllers.manager;
 
+import com.jfoenix.controls.JFXButton;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -11,7 +15,18 @@ import java.util.ResourceBundle;
  * This class perform display project information about selected project from dashboard
  */
 @Component
-public class ProjectViewController implements Initializable {
+public class ManagerProjectViewController implements Initializable {
+
+
+    @FXML
+    private VBox productBacklogVBox;
+
+    @FXML
+    private JFXButton backButton;
+
+    @FXML
+    private Label projectNameLabel;
+
 
     /**
      * Initialization of project view components
@@ -20,5 +35,6 @@ public class ProjectViewController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
     }
 }

@@ -1,6 +1,6 @@
 package com.project.manager.login;
 
-import com.project.manager.BCryptEncoder;
+import com.project.manager.utils.BCryptEncoder;
 import com.project.manager.entities.UserModel;
 import com.project.manager.exceptions.DifferentPasswordException;
 import com.project.manager.exceptions.EmptyUsernameException;
@@ -8,7 +8,6 @@ import com.project.manager.exceptions.EmptyPasswordException;
 import com.project.manager.exceptions.UserDoesNotExistException;
 import com.project.manager.repositories.UserRepository;
 import com.project.manager.services.LoginService;
-import com.project.manager.services.RegistrationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

@@ -1,4 +1,4 @@
-package com.project.manager.sceneManager.scenes.system;
+package com.project.manager.ui.sceneManager.scenes.system;
 
 public interface CustomScene {
     void show();

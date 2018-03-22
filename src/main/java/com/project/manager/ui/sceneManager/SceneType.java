@@ -1,4 +1,4 @@
-package com.project.manager.sceneManager;
+package com.project.manager.ui.sceneManager;
 
 /**
  * Scene Types includes all types of windows in application
@@ -21,16 +21,22 @@ public enum SceneType {
         Integer getId() {
             return 2;
         }
-    }, PROJECT_VIEW {
+    }, MANAGER_PROJECT_VIEW {
         @Override
         Integer getId() {
             return 3;
+        }
+    }, EMPLOYEE_PROJECT_VIEW {
+        @Override
+        Integer getId() {
+            return 4;
         }
     };
 
     /**
      * Return unique value of scene, used in changing scenes.
-     * @return integer value
+     *
+     * @return integer value of project id
      */
     abstract Integer getId();
 }

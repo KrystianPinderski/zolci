@@ -1,6 +1,6 @@
 package com.project.manager.registration;
 
-import com.project.manager.BCryptEncoder;
+import com.project.manager.utils.BCryptEncoder;
 import com.project.manager.entities.UserModel;
 import com.project.manager.exceptions.DifferentPasswordException;
 import com.project.manager.exceptions.EmailValidationException;
@@ -15,7 +15,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 import static org.mockito.Mockito.*;
 

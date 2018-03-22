@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,6 +18,7 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "project_id")
     private Long id;
 
     @NotNull
@@ -29,6 +29,13 @@ public class Project {
     @NotEmpty
     private String projectInformation;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private UserModel manager;
+
     @ManyToMany(mappedBy = "projects")//, fetch = FetchType.EAGER)
-    private Set<UserModel> members = new HashSet<>();
+    private Set<UserModel> members;
+
+    @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
+    private Set<Task> tasks;
 }

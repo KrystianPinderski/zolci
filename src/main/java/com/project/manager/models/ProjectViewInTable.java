@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.project.manager.entities.Project;
+import javafx.beans.property.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import lombok.Builder;
@@ -15,28 +16,28 @@ import lombok.Setter;
 @Builder
 public class ProjectViewInTable extends RecursiveTreeObject<ProjectViewInTable> {
 
-    private Long id;
+    private LongProperty id;
 
-    private String projectName;
+    private StringProperty projectName;
 
-    private String firstAndLastName;
+    private StringProperty firstAndLastName;
 
-    private int countOfMembers;
+    private IntegerProperty countOfMembers;
 
-    private int countOfClients;
+    private IntegerProperty countOfClients;
 
-    private JFXButton delete;
+    private SimpleObjectProperty<JFXButton> delete;
 
-    private JFXCheckBox check;
+    private SimpleObjectProperty<JFXCheckBox> check;
 
     public static ProjectViewInTable convert(Project project) {
         return ProjectViewInTable.builder()
-                .id(project.getId())
-                .projectName(project.getProjectName())
-                .firstAndLastName(project.getManager().getFirstName() + " " + project.getManager().getLastName())
-                .countOfMembers(project.getMembers().size())
-                .countOfClients(project.getClients().size())
-                .check(new JFXCheckBox())
+                .id(new SimpleLongProperty(project.getId()))
+                .projectName(new SimpleStringProperty(project.getProjectName()))
+                .firstAndLastName(new SimpleStringProperty(project.getManager().getFirstName() + " " + project.getManager().getLastName()))
+                .countOfMembers(new SimpleIntegerProperty(project.getMembers().size()))
+                .countOfClients(new SimpleIntegerProperty(project.getClients().size()))
+                .check(new SimpleObjectProperty<>(new JFXCheckBox()))
                 .build();
     }
 
@@ -44,7 +45,7 @@ public class ProjectViewInTable extends RecursiveTreeObject<ProjectViewInTable> 
         JFXButton del = new JFXButton();
         Image image = new Image(getClass().getResourceAsStream("/images/delete.png"));
         del.setGraphic(new ImageView(image));
-        projectViewInTable.setDelete(del);
+        projectViewInTable.setDelete(new SimpleObjectProperty<>(del));
         return projectViewInTable;
     }
 }

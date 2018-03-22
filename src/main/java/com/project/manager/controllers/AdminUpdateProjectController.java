@@ -22,8 +22,8 @@ public class AdminUpdateProjectController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         accept.setOnAction(e -> AdminDashboardTablesComponent.
                 projectDTOObservableList
-                .filtered(projectViewInTable -> projectViewInTable.getCheck().isSelected())
-                .forEach(projectViewInTable -> System.out.println(projectViewInTable.getId())));
+                .filtered(projectViewInTable -> projectViewInTable.getCheck().getValue().isSelected())
+                .forEach(projectViewInTable -> System.out.println(projectViewInTable.getId().asObject().get())));
 
     }
 }

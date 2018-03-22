@@ -58,6 +58,6 @@ public class AdminDashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateProject.setOnAction(e -> sceneManager.showInNewWindow(SceneType.ADMIN_UPDATE_PROJECT));
-        adminDashboardTablesComponent.generateProjectTableView(this);
+        adminDashboardTablesComponent.generateProjectTableView();
     }
 }

@@ -16,6 +16,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -27,13 +28,15 @@ public class AdminDashboardTablesComponent {
     public static ObservableList<ProjectViewInTable> projectDTOObservableList;
 
     private AdminService adminService;
+    private AdminDashboardController adminDashboardController;
 
     @Autowired
-    public AdminDashboardTablesComponent(AdminService adminService) {
+    public AdminDashboardTablesComponent(AdminService adminService, @Lazy AdminDashboardController adminDashboardController) {
         this.adminService = adminService;
+        this.adminDashboardController = adminDashboardController;
     }
 
-    public void generateProjectTableView(AdminDashboardController adminDashboardController) {
+    public void generateProjectTableView() {
          adminDashboardController.getProjectTable().setSelectionModel(null);
 
          List<Project> projects = adminService.getAllProjects();

@@ -42,10 +42,10 @@ public class AdminDashboardTablesComponentTest {
 
     @Test
     public void generateProjectTableViewTest() {
-        adminDashboardController.setProjectTable(new JFXTreeTableView<ProjectViewInTable>());
+        when(adminDashboardController.getProjectTable()).thenReturn(new JFXTreeTableView<>());
         when(adminService.getAllProjects()).thenReturn(getExampleProjects());
 
-        adminDashboardTablesComponent.generateProjectTableView(adminDashboardController);
+        adminDashboardTablesComponent.generateProjectTableView();
 
         assertNotNull(AdminDashboardTablesComponent.projectDTOObservableList);
     }

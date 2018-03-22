@@ -26,5 +26,6 @@ public class AdminService {
      * @param id
      */
     public void deleteProject(Long id) {
+        System.out.println(id);
     }
 }

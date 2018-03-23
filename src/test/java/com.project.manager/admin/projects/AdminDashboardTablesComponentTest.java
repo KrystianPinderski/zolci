@@ -1,4 +1,4 @@
-package com.project.manager.admin;
+package com.project.manager.admin.projects;
 
 import com.jfoenix.controls.JFXTreeTableView;
 import com.project.manager.JavaFXThreadingRule;
@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
@@ -42,13 +43,40 @@ public class AdminDashboardTablesComponentTest {
 
     @Test
     public void generateProjectTableViewTest() {
-        when(adminDashboardController.getProjectTable()).thenReturn(new JFXTreeTableView<>());
+        JFXTreeTableView<ProjectViewInTable> table = new JFXTreeTableView<>();
+        when(adminDashboardController.getProjectTable()).thenReturn(table);
         when(adminService.getAllProjects()).thenReturn(getExampleProjects());
 
         adminDashboardTablesComponent.generateProjectTableView();
 
+
         assertNotNull(AdminDashboardTablesComponent.projectDTOObservableList);
-    }
+        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.size(), 2);
+
+        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getId().getValue(),
+                getExampleProjects().get(0).getId());
+
+        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getProjectName().getValue(),
+                getExampleProjects().get(0).getProjectName());
+
+        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getFirstAndLastName().getValue(),
+                getExampleProjects().get(0).getManager().getFirstName() + " "
+                        + getExampleProjects().get(0).getManager().getLastName());
+
+        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getCountOfMembers().get(),
+                getExampleProjects().get(0).getMembers().size());
+
+        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getCountOfClients().get(),
+                getExampleProjects().get(0).getClients().size());
+
+
+        assertEquals(table.getColumns().size(), 6);
+        assertNotNull(table.getColumns().get(1).getCellObservableValue(0).getValue());
+        assertEquals(table.getColumns().get(1).getCellObservableValue(0).getValue(), "projectOne");
+        assertEquals(table.getColumns().get(2).getCellObservableValue(0).getValue(), "Adam Manager");
+        assertEquals(table.getColumns().get(3).getCellObservableValue(0).getValue(), 1);
+        assertEquals(table.getColumns().get(4).getCellObservableValue(0).getValue(), 1);
+            }
 
     public List<Project> getExampleProjects() {
         UserModel manager = UserModel.builder()
@@ -75,7 +103,7 @@ public class AdminDashboardTablesComponentTest {
         Set<UserModel> memberList = Sets.newSet(member);
 
         Project projectOne = Project.builder()
-                .id(1l)
+                .id(1L)
                 .projectName("projectOne")
                 .projectInformation("project one inf")
                 .manager(manager)
@@ -84,7 +112,7 @@ public class AdminDashboardTablesComponentTest {
                 .build();
 
         Project projectTwo = Project.builder()
-                .id(1l)
+                .id(1L)
                 .projectName("projectTwo")
                 .projectInformation("project two inf")
                 .manager(manager)

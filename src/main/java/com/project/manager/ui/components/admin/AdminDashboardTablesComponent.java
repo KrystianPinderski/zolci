@@ -8,13 +8,11 @@ import com.project.manager.entities.Project;
 import com.project.manager.models.ProjectViewInTable;
 import com.project.manager.services.AdminService;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -56,13 +54,20 @@ public class AdminDashboardTablesComponent {
         TreeTableColumn<ProjectViewInTable, Integer> countOfClientsColumn = new TreeTableColumn<>("Count of clients");
         TreeTableColumn<ProjectViewInTable, JFXButton> deleteButtonColumn = new TreeTableColumn<>("");
 
+        checkColumn.setSortable(false);
+        projectNameColumn.setSortable(false);
+        managerColumn.setSortable(false);
+        countOfMembersColumn.setSortable(false);
+        countOfClientsColumn.setSortable(false);
+        deleteButtonColumn.setSortable(false);
+
 
         adminDashboardController.getProjectTable().getColumns().addAll
                 (checkColumn, projectNameColumn, managerColumn, countOfMembersColumn, countOfClientsColumn ,deleteButtonColumn);
 
         checkColumn.setCellValueFactory(p -> new SimpleObjectProperty(p.getValue().getValue().getCheck().get()));
         projectNameColumn.setCellValueFactory(p -> p.getValue().getValue().getProjectName());
-        managerColumn.setCellValueFactory(p -> p.getValue().getValue().getProjectName());
+        managerColumn.setCellValueFactory(p -> p.getValue().getValue().getFirstAndLastName());
         countOfMembersColumn.setCellValueFactory(p -> p.getValue().getValue().getCountOfMembers().asObject());
         countOfClientsColumn.setCellValueFactory(p -> p.getValue().getValue().getCountOfClients().asObject());
         deleteButtonColumn.setCellValueFactory(p -> new SimpleObjectProperty(p.getValue().getValue().getDelete().get()));

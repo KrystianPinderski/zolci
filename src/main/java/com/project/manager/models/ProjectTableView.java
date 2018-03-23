@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.project.manager.entities.Project;
+import com.project.manager.ui.GraphicButtonGenerator;
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,7 +18,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Builder
-public class ProjectViewInTable extends RecursiveTreeObject<ProjectViewInTable> {
+public class ProjectTableView extends RecursiveTreeObject<ProjectTableView> {
 
     private LongProperty id;
 
@@ -39,8 +40,8 @@ public class ProjectViewInTable extends RecursiveTreeObject<ProjectViewInTable> 
      * @param project This parameter is original project for converting to Project view class
      * @return method return already converted original project to project view class
      */
-    public static ProjectViewInTable convert(Project project) {
-        return ProjectViewInTable.builder()
+    public static ProjectTableView convert(Project project) {
+        return ProjectTableView.builder()
                 .id(new SimpleLongProperty(project.getId()))
                 .projectName(new SimpleStringProperty(project.getProjectName()))
                 .managerFirstAndLastName(new SimpleStringProperty(project.getManager().getFirstName() + " " + project.getManager().getLastName()))
@@ -51,14 +52,12 @@ public class ProjectViewInTable extends RecursiveTreeObject<ProjectViewInTable> 
     }
 
     /** This is the method to generate delete button in table
-     * @param projectViewInTable this is the projectView object for modify it to contain this button inside
+     * @param projectTableView this is the projectView object for modify it to contain this button inside
      * @return method will return ProjectView object with delete button inside
      */
-    public ProjectViewInTable generateDelButton(ProjectViewInTable projectViewInTable) {
-        JFXButton del = new JFXButton();
-        Image image = new Image(getClass().getResourceAsStream("/images/delete.png"));
-        del.setGraphic(new ImageView(image));
-        projectViewInTable.setDelete(new SimpleObjectProperty<>(del));
-        return projectViewInTable;
+    public ProjectTableView generateDelButton(ProjectTableView projectTableView) {
+        JFXButton del = new GraphicButtonGenerator().getJfxButtonWithGraphic("/images/delete.png");
+        projectTableView.setDelete(new SimpleObjectProperty<>(del));
+        return projectTableView;
     }
 }

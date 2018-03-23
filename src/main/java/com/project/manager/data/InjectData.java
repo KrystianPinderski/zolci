@@ -35,18 +35,6 @@ public class InjectData {
      */
 //   @PostConstruct
     public void injectData() {
-       for (int i = 0; i < 10; i++) {
-           UserModel userOne = UserModel.builder()
-                   .username("user")
-                   .unlockCode(String.valueOf(new Date().getTime()))
-                   .password(BCryptEncoder.encode("password"))
-                   .email("user@mail.com")
-                   .role(UserRole.USER)
-                   .isLocked(false)
-                   .projectsAsUser(new HashSet<>())
-                   .firstName("Adam")
-                   .lastName("Spadam")
-                   .build();
 
            UserModel client = UserModel.builder()
                    .username("client")
@@ -71,6 +59,19 @@ public class InjectData {
                    .firstName("Edward")
                    .lastName("Oncki")
                    .projectsAsManager(new HashSet<>())
+                   .build();
+
+       for (int i = 0; i < 10; i++) {
+           UserModel userOne = UserModel.builder()
+                   .username("user")
+                   .unlockCode(String.valueOf(new Date().getTime()))
+                   .password(BCryptEncoder.encode("password"))
+                   .email("user@mail.com")
+                   .role(UserRole.USER)
+                   .isLocked(false)
+                   .projectsAsUser(new HashSet<>())
+                   .firstName("Adam")
+                   .lastName("Spadam")
                    .build();
 
            Project projectOne = Project.builder()

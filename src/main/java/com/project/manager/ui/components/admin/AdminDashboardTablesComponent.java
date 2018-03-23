@@ -5,8 +5,9 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.project.manager.controllers.AdminDashboardController;
 import com.project.manager.entities.Project;
-import com.project.manager.models.ProjectViewInTable;
+import com.project.manager.models.ProjectTableView;
 import com.project.manager.services.ProjectService;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,7 +30,8 @@ public class AdminDashboardTablesComponent {
     /**
      * List of Projects in service
      */
-    public static ObservableList<ProjectViewInTable> projectDTOObservableList;
+    public static ObservableList<ProjectTableView> projectDTOObservableList;
+//    public static ObservableList<>
 
     private ProjectService projectService;
     private AdminDashboardController adminDashboardController;
@@ -45,6 +47,12 @@ public class AdminDashboardTablesComponent {
         this.adminDashboardController = adminDashboardController;
     }
 
+    public void generateTables() {
+        if (adminDashboardController.getProjectsTab().isSelected() &&
+                adminDashboardController.getProjectTable().getCurrentItemsCount() < 1) {
+            generateProjectTableView();
+        }
+    }
     /**
      * This method get table of projects from Admin dashboard view and generate table with provided project form DB
      */
@@ -55,20 +63,22 @@ public class AdminDashboardTablesComponent {
          projectDTOObservableList = FXCollections
                 .observableList(projects
                         .stream()
-                        .map(ProjectViewInTable::convert)
-                        .map(projectViewInTable -> projectViewInTable.generateDelButton(projectViewInTable))
-                        .peek(projectViewInTable -> projectViewInTable.getDelete().getValue().setOnAction(e -> projectService.deleteProject(projectViewInTable.getId().get())))
+                        .map(ProjectTableView::convert)
+                        .map(projectTableView -> projectTableView.generateDelButton(projectTableView))
+                        .peek(projectTableView -> projectTableView.getDelete().getValue().setOnAction(e -> projectService.deleteProject(projectTableView.getId().get())))
                         .collect(Collectors.toList()));
 
 
-        TreeTableColumn<ProjectViewInTable, CheckBox> checkColumn = new TreeTableColumn<>("");
-        TreeTableColumn<ProjectViewInTable, String> projectNameColumn = new TreeTableColumn<>("Project name");
-        TreeTableColumn<ProjectViewInTable, String> managerColumn = new TreeTableColumn<>("Manager");
-        TreeTableColumn<ProjectViewInTable, String> clientColumn = new TreeTableColumn<>("Client");
-        TreeTableColumn<ProjectViewInTable, Integer> countOfMembersColumn = new TreeTableColumn<>("Count of members");
-        TreeTableColumn<ProjectViewInTable, JFXButton> deleteButtonColumn = new TreeTableColumn<>("");
+        TreeTableColumn<ProjectTableView, CheckBox> checkColumn = new TreeTableColumn<>("");
+        TreeTableColumn<ProjectTableView, Long> idColumn = new TreeTableColumn<>("Id");
+        TreeTableColumn<ProjectTableView, String> projectNameColumn = new TreeTableColumn<>("Project name");
+        TreeTableColumn<ProjectTableView, String> managerColumn = new TreeTableColumn<>("Manager");
+        TreeTableColumn<ProjectTableView, String> clientColumn = new TreeTableColumn<>("Client");
+        TreeTableColumn<ProjectTableView, Integer> countOfMembersColumn = new TreeTableColumn<>("Count of members");
+        TreeTableColumn<ProjectTableView, JFXButton> deleteButtonColumn = new TreeTableColumn<>("");
 
         checkColumn.setSortable(false);
+        idColumn.setSortable(false);
         projectNameColumn.setSortable(false);
         managerColumn.setSortable(false);
         countOfMembersColumn.setSortable(false);
@@ -77,18 +87,21 @@ public class AdminDashboardTablesComponent {
 
 
         adminDashboardController.getProjectTable().getColumns().addAll
-                (checkColumn, projectNameColumn, managerColumn, clientColumn ,countOfMembersColumn, deleteButtonColumn);
+                (checkColumn, idColumn, projectNameColumn, managerColumn, clientColumn ,countOfMembersColumn, deleteButtonColumn);
 
         checkColumn.setCellValueFactory(p -> new SimpleObjectProperty(p.getValue().getValue().getCheck().get()));
+        idColumn.setCellValueFactory(p -> p.getValue().getValue().getId().asObject());
         projectNameColumn.setCellValueFactory(p -> p.getValue().getValue().getProjectName());
         managerColumn.setCellValueFactory(p -> p.getValue().getValue().getManagerFirstAndLastName());
         clientColumn.setCellValueFactory(p -> p.getValue().getValue().getClientFirstAndLastName());
         countOfMembersColumn.setCellValueFactory(p -> p.getValue().getValue().getCountOfMembers().asObject());
         deleteButtonColumn.setCellValueFactory(p -> new SimpleObjectProperty(p.getValue().getValue().getDelete().get()));
 
-        TreeItem<ProjectViewInTable> item = new RecursiveTreeItem<ProjectViewInTable>(projectDTOObservableList, RecursiveTreeObject::getChildren);
+        TreeItem<ProjectTableView> item = new RecursiveTreeItem<ProjectTableView>(projectDTOObservableList, RecursiveTreeObject::getChildren);
 
         adminDashboardController.getProjectTable().setRoot(item);
         adminDashboardController.getProjectTable().setShowRoot(false);
     }
+
+
 }

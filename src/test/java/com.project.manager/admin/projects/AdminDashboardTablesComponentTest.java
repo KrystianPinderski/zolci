@@ -5,7 +5,7 @@ import com.project.manager.JavaFXThreadingRule;
 import com.project.manager.controllers.AdminDashboardController;
 import com.project.manager.entities.Project;
 import com.project.manager.entities.UserModel;
-import com.project.manager.models.ProjectViewInTable;
+import com.project.manager.models.ProjectTableView;
 import com.project.manager.services.ProjectService;
 import com.project.manager.ui.components.admin.AdminDashboardTablesComponent;
 import org.junit.Rule;
@@ -43,7 +43,7 @@ public class AdminDashboardTablesComponentTest {
 
     @Test
     public void generateProjectTableViewTest() {
-        JFXTreeTableView<ProjectViewInTable> table = new JFXTreeTableView<>();
+        JFXTreeTableView<ProjectTableView> table = new JFXTreeTableView<>();
         when(adminDashboardController.getProjectTable()).thenReturn(table);
         when(projectService.getAllProjects()).thenReturn(getExampleProjects());
 

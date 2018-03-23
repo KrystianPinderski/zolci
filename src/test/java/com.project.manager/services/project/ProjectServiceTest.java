@@ -1,9 +1,9 @@
-package com.project.manager.admin;
+package com.project.manager.services.project;
 
 import com.project.manager.admin.projects.AdminDashboardTablesComponentTest;
 import com.project.manager.entities.Project;
 import com.project.manager.repositories.ProjectRepository;
-import com.project.manager.services.AdminService;
+import com.project.manager.services.ProjectService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,12 +18,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AdminServiceTest {
+public class ProjectServiceTest {
 
     private List<Project> exampleProject;
 
     @InjectMocks
-    private AdminService adminService;
+    private ProjectService projectService;
 
     @Mock
     private ProjectRepository projectRepository;
@@ -38,7 +38,7 @@ public class AdminServiceTest {
     public void getAllProjectsTest() {
         when(projectRepository.findAll()).thenReturn(exampleProject);
 
-        adminService.getAllProjects();
+        projectService.getAllProjects();
 
         assertNotNull(exampleProject);
         assertEquals(exampleProject.size(), 2);

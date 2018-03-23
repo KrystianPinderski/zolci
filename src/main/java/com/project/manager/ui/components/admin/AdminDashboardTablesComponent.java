@@ -6,7 +6,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.project.manager.controllers.AdminDashboardController;
 import com.project.manager.entities.Project;
 import com.project.manager.models.ProjectViewInTable;
-import com.project.manager.services.AdminService;
+import com.project.manager.services.ProjectService;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,30 +20,46 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class is bridge between {@link AdminService} and {@link AdminDashboardController}
+ * admin controller send all component reference to this class to get some values from them
+ * or you just manage them
+ */
 @Component
 public class AdminDashboardTablesComponent {
 
+    /**
+     * List of Projects in service
+     */
     public static ObservableList<ProjectViewInTable> projectDTOObservableList;
 
-    private AdminService adminService;
+    private ProjectService projectService;
     private AdminDashboardController adminDashboardController;
 
+    /**
+     * Constructor of spring bean with two beans injected
+     * @param projectService this bean is responsible for every logic operation of projects
+     * @param adminDashboardController this controller is inject to send some component references
+     */
     @Autowired
-    public AdminDashboardTablesComponent(AdminService adminService, @Lazy AdminDashboardController adminDashboardController) {
-        this.adminService = adminService;
+    public AdminDashboardTablesComponent(ProjectService projectService, @Lazy AdminDashboardController adminDashboardController) {
+        this.projectService = projectService;
         this.adminDashboardController = adminDashboardController;
     }
 
+    /**
+     * This method get table of projects from Admin dashboard view and generate table with provided project form DB
+     */
     public void generateProjectTableView() {
          adminDashboardController.getProjectTable().setSelectionModel(null);
 
-         List<Project> projects = adminService.getAllProjects();
+         List<Project> projects = projectService.getAllProjects();
          projectDTOObservableList = FXCollections
                 .observableList(projects
                         .stream()
                         .map(ProjectViewInTable::convert)
                         .map(projectViewInTable -> projectViewInTable.generateDelButton(projectViewInTable))
-                        .peek(projectViewInTable -> projectViewInTable.getDelete().getValue().setOnAction(e -> adminService.deleteProject(projectViewInTable.getId().get())))
+                        .peek(projectViewInTable -> projectViewInTable.getDelete().getValue().setOnAction(e -> projectService.deleteProject(projectViewInTable.getId().get())))
                         .collect(Collectors.toList()));
 
 

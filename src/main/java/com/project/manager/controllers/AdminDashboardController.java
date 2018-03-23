@@ -17,6 +17,10 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This is class which is responsible to handling the actions on AdminDashboard Windows, this class also
+ * contains all references to tables and other JavaFX and JFeonix components which helps as to create interface
+ */
 @Component
 @Getter
 @Setter
@@ -25,6 +29,13 @@ public class AdminDashboardController implements Initializable {
     private AdminDashboardTablesComponent adminDashboardTablesComponent;
     private SceneManager sceneManager;
 
+    /**
+     * The constructor of this Spring Bean contains reference to {@link AdminDashboardTablesComponent},
+     * this class are injected to this controller to manage components of AdminDashboard Window
+     * Inside constructor is created reference to SessionManager {@link SceneManager} to switch some other
+     * windows
+     * @param adminDashboardTablesComponent
+     */
     @Autowired
     public AdminDashboardController(AdminDashboardTablesComponent adminDashboardTablesComponent) {
         this.adminDashboardTablesComponent = adminDashboardTablesComponent;
@@ -55,6 +66,10 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private JFXButton showProject;
 
+    /**
+     * This method is responsible for listening the controller in window, and making action
+     * implemented in lambdas expression
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateProject.setOnAction(e -> sceneManager.showInNewWindow(SceneType.ADMIN_UPDATE_PROJECT));

@@ -32,4 +32,14 @@ public class ProjectService {
         return projectRepository.findByMembers_Id(sessionService.getID());
     }
 
+    /**
+     * This method are returning all project form DB
+     * @return list of {@link Project}
+     */
+    public List<Project> getAllProjects() {
+        return projectRepository.findAll();
+    }
+
+    public void deleteProject(long l) {
+    }
 }

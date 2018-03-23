@@ -1,4 +1,4 @@
-package com.project.manager.registration;
+package com.project.manager.services.registration;
 
 import com.project.manager.BCryptEncoder;
 import com.project.manager.entities.UserModel;
@@ -15,7 +15,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 import static org.mockito.Mockito.*;
 

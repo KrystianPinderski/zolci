@@ -21,9 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * This class is bridge between {@link AdminService} and {@link AdminDashboardController}
- * admin controller send all component reference to this class to get some values from them
- * or you just manage them
+ * This class will manage the components of AdminDashboardController
  */
 @Component
 public class AdminDashboardTablesComponent {
@@ -66,26 +64,26 @@ public class AdminDashboardTablesComponent {
         TreeTableColumn<ProjectViewInTable, CheckBox> checkColumn = new TreeTableColumn<>("");
         TreeTableColumn<ProjectViewInTable, String> projectNameColumn = new TreeTableColumn<>("Project name");
         TreeTableColumn<ProjectViewInTable, String> managerColumn = new TreeTableColumn<>("Manager");
+        TreeTableColumn<ProjectViewInTable, String> clientColumn = new TreeTableColumn<>("Client");
         TreeTableColumn<ProjectViewInTable, Integer> countOfMembersColumn = new TreeTableColumn<>("Count of members");
-        TreeTableColumn<ProjectViewInTable, Integer> countOfClientsColumn = new TreeTableColumn<>("Count of clients");
         TreeTableColumn<ProjectViewInTable, JFXButton> deleteButtonColumn = new TreeTableColumn<>("");
 
         checkColumn.setSortable(false);
         projectNameColumn.setSortable(false);
         managerColumn.setSortable(false);
         countOfMembersColumn.setSortable(false);
-        countOfClientsColumn.setSortable(false);
+        clientColumn.setSortable(false);
         deleteButtonColumn.setSortable(false);
 
 
         adminDashboardController.getProjectTable().getColumns().addAll
-                (checkColumn, projectNameColumn, managerColumn, countOfMembersColumn, countOfClientsColumn ,deleteButtonColumn);
+                (checkColumn, projectNameColumn, managerColumn, clientColumn ,countOfMembersColumn, deleteButtonColumn);
 
         checkColumn.setCellValueFactory(p -> new SimpleObjectProperty(p.getValue().getValue().getCheck().get()));
         projectNameColumn.setCellValueFactory(p -> p.getValue().getValue().getProjectName());
-        managerColumn.setCellValueFactory(p -> p.getValue().getValue().getFirstAndLastName());
+        managerColumn.setCellValueFactory(p -> p.getValue().getValue().getManagerFirstAndLastName());
+        clientColumn.setCellValueFactory(p -> p.getValue().getValue().getClientFirstAndLastName());
         countOfMembersColumn.setCellValueFactory(p -> p.getValue().getValue().getCountOfMembers().asObject());
-        countOfClientsColumn.setCellValueFactory(p -> p.getValue().getValue().getCountOfClients().asObject());
         deleteButtonColumn.setCellValueFactory(p -> new SimpleObjectProperty(p.getValue().getValue().getDelete().get()));
 
         TreeItem<ProjectViewInTable> item = new RecursiveTreeItem<ProjectViewInTable>(projectDTOObservableList, RecursiveTreeObject::getChildren);

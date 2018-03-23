@@ -33,8 +33,10 @@ public class Project {
     @NotNull
     private UserModel manager;
 
-    @ManyToMany(mappedBy = "projectsAsClient", fetch = FetchType.EAGER)//, fetch = FetchType.EAGER)
-    private Set<UserModel> clients;
+    @ManyToOne
+    @JoinColumn(name = "CLIENT_ID")
+    @NotNull
+    private UserModel client;
 
     @ManyToMany(mappedBy = "projectsAsUser", fetch = FetchType.EAGER)//, fetch = FetchType.EAGER)
     private Set<UserModel> members;

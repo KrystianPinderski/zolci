@@ -23,11 +23,11 @@ public class ProjectViewInTable extends RecursiveTreeObject<ProjectViewInTable> 
 
     private StringProperty projectName;
 
-    private StringProperty firstAndLastName;
+    private StringProperty managerFirstAndLastName;
+
+    private StringProperty clientFirstAndLastName;
 
     private IntegerProperty countOfMembers;
-
-    private IntegerProperty countOfClients;
 
     private SimpleObjectProperty<JFXButton> delete;
 
@@ -43,9 +43,9 @@ public class ProjectViewInTable extends RecursiveTreeObject<ProjectViewInTable> 
         return ProjectViewInTable.builder()
                 .id(new SimpleLongProperty(project.getId()))
                 .projectName(new SimpleStringProperty(project.getProjectName()))
-                .firstAndLastName(new SimpleStringProperty(project.getManager().getFirstName() + " " + project.getManager().getLastName()))
+                .managerFirstAndLastName(new SimpleStringProperty(project.getManager().getFirstName() + " " + project.getManager().getLastName()))
+                .clientFirstAndLastName(new SimpleStringProperty(project.getClient().getFirstName() + " " + project.getClient().getLastName()))
                 .countOfMembers(new SimpleIntegerProperty(project.getMembers().size()))
-                .countOfClients(new SimpleIntegerProperty(project.getClients().size()))
                 .check(new SimpleObjectProperty<>(new JFXCheckBox()))
                 .build();
     }

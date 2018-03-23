@@ -59,22 +59,24 @@ public class AdminDashboardTablesComponentTest {
         assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getProjectName().getValue(),
                 getExampleProjects().get(0).getProjectName());
 
-        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getFirstAndLastName().getValue(),
+        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getManagerFirstAndLastName().getValue(),
                 getExampleProjects().get(0).getManager().getFirstName() + " "
                         + getExampleProjects().get(0).getManager().getLastName());
+
+        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getClientFirstAndLastName().getValue(),
+                getExampleProjects().get(0).getClient().getFirstName() + " "
+                        + getExampleProjects().get(0).getClient().getLastName());
 
         assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getCountOfMembers().get(),
                 getExampleProjects().get(0).getMembers().size());
 
-        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getCountOfClients().get(),
-                getExampleProjects().get(0).getClients().size());
 
 
         assertEquals(table.getColumns().size(), 6);
         assertNotNull(table.getColumns().get(1).getCellObservableValue(0).getValue());
         assertEquals(table.getColumns().get(1).getCellObservableValue(0).getValue(), "projectOne");
         assertEquals(table.getColumns().get(2).getCellObservableValue(0).getValue(), "Adam Manager");
-        assertEquals(table.getColumns().get(3).getCellObservableValue(0).getValue(), 1);
+        assertEquals(table.getColumns().get(3).getCellObservableValue(0).getValue(), "Adam Client");
         assertEquals(table.getColumns().get(4).getCellObservableValue(0).getValue(), 1);
             }
 
@@ -99,7 +101,6 @@ public class AdminDashboardTablesComponentTest {
                 .projectsAsClient(new HashSet<>())
                 .build();
 
-        Set<UserModel> clientList = Sets.newSet(client);
         Set<UserModel> memberList = Sets.newSet(member);
 
         Project projectOne = Project.builder()
@@ -107,7 +108,7 @@ public class AdminDashboardTablesComponentTest {
                 .projectName("projectOne")
                 .projectInformation("project one inf")
                 .manager(manager)
-                .clients(clientList)
+                .client(client)
                 .members(memberList)
                 .build();
 
@@ -116,7 +117,7 @@ public class AdminDashboardTablesComponentTest {
                 .projectName("projectTwo")
                 .projectInformation("project two inf")
                 .manager(manager)
-                .clients(clientList)
+                .client(client)
                 .members(memberList)
                 .build();
 

@@ -59,12 +59,7 @@ public class UserModel {
     @OneToMany(mappedBy = "manager", fetch = FetchType.EAGER)
     private Set<Project> projectsAsManager;
 
-    @ManyToMany
-    @JoinTable(
-            name = "CLIENT_PROJECT",
-            joinColumns = { @JoinColumn(name = "client_id") },
-            inverseJoinColumns = { @JoinColumn(name = "project_id") }
-    )
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Project> projectsAsClient;
 
     @ManyToMany

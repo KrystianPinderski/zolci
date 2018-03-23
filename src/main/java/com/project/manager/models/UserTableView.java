@@ -1,12 +1,11 @@
 package com.project.manager.models;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.project.manager.entities.UserModel;
 import com.project.manager.ui.GraphicButtonGenerator;
 import javafx.beans.property.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class UserTableView extends RecursiveTreeObject<ProjectTableView> {
+public class UserTableView extends RecursiveTreeObject<UserTableView> {
 
     private LongProperty id;
 
@@ -34,6 +33,8 @@ public class UserTableView extends RecursiveTreeObject<ProjectTableView> {
 
     private SimpleObjectProperty<JFXButton> delete;
 
+    private SimpleObjectProperty<JFXCheckBox> check;
+
     public static UserTableView convert(UserModel userModel) {
         return UserTableView.builder()
                 .id(new SimpleLongProperty(userModel.getId()))
@@ -44,6 +45,7 @@ public class UserTableView extends RecursiveTreeObject<ProjectTableView> {
                         userModel.getProjectsAsManager().size() +
                         userModel.getProjectsAsUser().size()))
                 .isLocked(new SimpleBooleanProperty(userModel.isLocked()))
+                .check(new SimpleObjectProperty<>(new JFXCheckBox()))
                 .build();
     }
 
@@ -58,7 +60,7 @@ public class UserTableView extends RecursiveTreeObject<ProjectTableView> {
         JFXButton reset = new JFXButton("Reset password");
         reset.setButtonType(JFXButton.ButtonType.RAISED);
         reset.setStyle("-fx-background-color: #be2e22");
-        userTableView.setDelete(new SimpleObjectProperty(reset));
+        userTableView.setResetPass(new SimpleObjectProperty(reset));
         return userTableView;
     }
 

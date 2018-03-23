@@ -3,6 +3,7 @@ package com.project.manager.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.project.manager.models.ProjectTableView;
+import com.project.manager.models.UserTableView;
 import com.project.manager.sceneManager.SceneManager;
 import com.project.manager.sceneManager.SceneType;
 import com.project.manager.ui.components.admin.AdminDashboardTablesComponent;
@@ -55,6 +56,9 @@ public class AdminDashboardController implements Initializable {
     private JFXTreeTableView<ProjectTableView> projectTable;
 
     @FXML
+    private JFXTreeTableView<UserTableView> userTable;
+
+    @FXML
     private JFXButton logout;
 
     @FXML
@@ -74,6 +78,7 @@ public class AdminDashboardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         adminDashboardTablesComponent.generateProjectTableView();
         projectsTab.setOnSelectionChanged(e -> adminDashboardTablesComponent.generateTables());
+        usersTab.setOnSelectionChanged(e -> adminDashboardTablesComponent.generateTables());
         updateProject.setOnAction(e -> sceneManager.showInNewWindow(SceneType.ADMIN_UPDATE_PROJECT));
     }
 }

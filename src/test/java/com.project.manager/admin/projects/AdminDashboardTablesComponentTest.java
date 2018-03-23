@@ -50,24 +50,24 @@ public class AdminDashboardTablesComponentTest {
         adminDashboardTablesComponent.generateProjectTableView();
 
 
-        assertNotNull(AdminDashboardTablesComponent.projectDTOObservableList);
-        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.size(), 2);
+        assertNotNull(AdminDashboardTablesComponent.projectTableViews);
+        assertEquals(AdminDashboardTablesComponent.projectTableViews.size(), 2);
 
-        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getId().getValue(),
+        assertEquals(AdminDashboardTablesComponent.projectTableViews.get(0).getId().getValue(),
                 getExampleProjects().get(0).getId());
 
-        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getProjectName().getValue(),
+        assertEquals(AdminDashboardTablesComponent.projectTableViews.get(0).getProjectName().getValue(),
                 getExampleProjects().get(0).getProjectName());
 
-        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getManagerFirstAndLastName().getValue(),
+        assertEquals(AdminDashboardTablesComponent.projectTableViews.get(0).getManagerFirstAndLastName().getValue(),
                 getExampleProjects().get(0).getManager().getFirstName() + " "
                         + getExampleProjects().get(0).getManager().getLastName());
 
-        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getClientFirstAndLastName().getValue(),
+        assertEquals(AdminDashboardTablesComponent.projectTableViews.get(0).getClientFirstAndLastName().getValue(),
                 getExampleProjects().get(0).getClient().getFirstName() + " "
                         + getExampleProjects().get(0).getClient().getLastName());
 
-        assertEquals(AdminDashboardTablesComponent.projectDTOObservableList.get(0).getCountOfMembers().get(),
+        assertEquals(AdminDashboardTablesComponent.projectTableViews.get(0).getCountOfMembers().get(),
                 getExampleProjects().get(0).getMembers().size());
 
 

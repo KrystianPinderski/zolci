@@ -2,6 +2,7 @@ package com.project.manager.entities;
 
 import com.project.manager.models.UserRole;
 import lombok.*;
+import org.hibernate.annotations.Proxy;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.core.annotation.AliasFor;
 
@@ -20,6 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Proxy(lazy = false)
 public class UserModel {
 
     @Id
@@ -62,7 +64,7 @@ public class UserModel {
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Project> projectsAsClient;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "USER_PROJECT",
         joinColumns = { @JoinColumn(name = "user_id") },

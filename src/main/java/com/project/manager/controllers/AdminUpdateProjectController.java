@@ -29,7 +29,7 @@ public class AdminUpdateProjectController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        accept.setOnAction(e -> AdminDashboardTablesComponent.projectDTOObservableList
+        accept.setOnAction(e -> AdminDashboardTablesComponent.projectTableViews
                 .filtered(projectViewInTable -> projectViewInTable.getCheck().get().isSelected())
                 .forEach(projectViewInTable -> System.out.println(projectViewInTable.getId().get())));
 

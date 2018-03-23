@@ -10,12 +10,13 @@ import com.project.manager.models.ProjectTableView;
 import com.project.manager.models.UserTableView;
 import com.project.manager.services.ProjectService;
 import com.project.manager.services.UserService;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.*;
+import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -127,8 +128,22 @@ public class AdminDashboardTablesComponent {
 
         TreeItem<UserTableView> item = new RecursiveTreeItem<UserTableView>(userTableViews, RecursiveTreeObject::getChildren);
 
+
         adminDashboardController.getUserTable().setRoot(item);
         adminDashboardController.getUserTable().setShowRoot(false);
+        adminDashboardController.getUserTable().setRowFactory(row -> new TreeTableRow<UserTableView>(){
+            @Override
+            protected void updateItem(UserTableView item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null) {
+                    setStyle("");
+                } else {
+                    if (!item.getIsLocked().get()) {
+                        setStyle("-fx-background-color: #ff5a47");
+                    }
+                }
+            }
+        });
     }
 
     /**

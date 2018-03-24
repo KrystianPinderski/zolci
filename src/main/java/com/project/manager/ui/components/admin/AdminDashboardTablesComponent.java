@@ -53,10 +53,12 @@ public class AdminDashboardTablesComponent {
     private AdminDashboardController adminDashboardController;
 
     /**
-     * Constructor of spring bean with two beans injected
-     *
-     * @param projectService           this bean is responsible for every logic operation of projects
-     * @param adminDashboardController this controller is inject to send some component references
+     * This is the constructor with injected services and one controller
+     * @param projectService injected project service which provides all project login methods
+     * @param userService injected user service which provides all project login methods
+     * @param messageService injected message service which provides all project login methods
+     * @param adminDashboardController injected admin dashboard controller to get reference to JavaFX components
+     *                                 in admin view like tables and buttons
      */
     @Autowired
     public AdminDashboardTablesComponent(ProjectService projectService,
@@ -69,6 +71,9 @@ public class AdminDashboardTablesComponent {
         this.adminDashboardController = adminDashboardController;
     }
 
+    /**
+     * This is method to generate table views in admin dashboard window depending on tab selection
+     */
     public void generateTables() {
         if (adminDashboardController.getProjectsTab().isSelected() &&
                 adminDashboardController.getProjectTable().getCurrentItemsCount() < 1) {
@@ -85,6 +90,11 @@ public class AdminDashboardTablesComponent {
         }
     }
 
+    /**
+     * This method generate two table views
+     * First is table of received admin messaged from other users in application
+     * Second generate table view of sent messages by admin to other account in application
+     */
     private void generateInboxAndSentTableView() {
         adminDashboardController.getSentboxTable().getColumns().clear();
         adminDashboardController.getInboxTable().getColumns().clear();
@@ -139,6 +149,12 @@ public class AdminDashboardTablesComponent {
 
     }
 
+    /**
+     * This method generate table view for all users in application and provides some button to do some action depending
+     * on select row of user in table or just click on specific row of table
+     *
+     * Inside is also refactor method to color users which are locked or block
+     */
     private void generateUserTableView() {
         adminDashboardController.getUserTable().getColumns().clear();
         adminDashboardController.getUserTable().setSelectionModel(null);
@@ -269,7 +285,12 @@ public class AdminDashboardTablesComponent {
         adminDashboardController.getProjectTable().setShowRoot(false);
     }
 
-    public void showMessageWindow(long l) {
-        messageService.showMessageWindow(l);
+    /**
+     * This method are responsible for showing message window with more details about message
+     * @param id this is the id parameter to select in {@link MessageService} that we will ask about message
+     *           with passed id after window appear
+     */
+    public void showMessageWindow(long id) {
+        messageService.showMessageWindow(id);
     }
 }

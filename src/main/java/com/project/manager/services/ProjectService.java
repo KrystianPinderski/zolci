@@ -40,6 +40,6 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
-    public void delete(long l) {
+    public void delete(long id) {
     }
 }

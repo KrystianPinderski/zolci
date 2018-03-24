@@ -71,5 +71,8 @@ public class UserModel {
         inverseJoinColumns = { @JoinColumn(name = "project_id") }
     )
     private Set<Project> projectsAsUser;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Message> messages;
 }
 

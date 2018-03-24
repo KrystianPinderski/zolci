@@ -23,7 +23,7 @@ public class UserService {
     }
 
     public void delete(long l) {
-        userRepository.deleteById(l);
+        System.out.println(l);
     }
 
     public void changeLockStatus(boolean b, Long userId) {

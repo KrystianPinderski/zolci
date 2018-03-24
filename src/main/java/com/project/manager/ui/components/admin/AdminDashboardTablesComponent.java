@@ -4,24 +4,27 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.project.manager.controllers.AdminDashboardController;
+import com.project.manager.entities.Message;
 import com.project.manager.entities.Project;
 import com.project.manager.entities.UserModel;
+import com.project.manager.models.MessageTableView;
 import com.project.manager.models.ProjectTableView;
 import com.project.manager.models.UserTableView;
+import com.project.manager.services.MessageService;
 import com.project.manager.services.ProjectService;
 import com.project.manager.services.UserService;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
-import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -31,13 +34,22 @@ import java.util.stream.Collectors;
 public class AdminDashboardTablesComponent {
 
     /**
-     * List of Projects in service
+     * List of Projects in database
      */
     public static ObservableList<ProjectTableView> projectTableViews;
+    /**
+     * List of all users in database
+     */
     public static ObservableList<UserTableView> userTableViews;
+    /**
+     * List off all received and sent messages by actual logged account
+     */
+    public static ObservableList<MessageTableView> receivedMessages;
+    public static ObservableList<MessageTableView> sentMessages;
 
     private ProjectService projectService;
     private UserService userService;
+    private MessageService messageService;
     private AdminDashboardController adminDashboardController;
 
     /**
@@ -49,9 +61,11 @@ public class AdminDashboardTablesComponent {
     @Autowired
     public AdminDashboardTablesComponent(ProjectService projectService,
                                          UserService userService,
+                                         MessageService messageService,
                                          @Lazy AdminDashboardController adminDashboardController) {
         this.projectService = projectService;
         this.userService = userService;
+        this.messageService = messageService;
         this.adminDashboardController = adminDashboardController;
     }
 
@@ -64,6 +78,65 @@ public class AdminDashboardTablesComponent {
                 adminDashboardController.getUserTable().getCurrentItemsCount() < 1) {
             generateUserTableView();
         }
+        if (adminDashboardController.getMessageTab().isSelected() &&
+                (adminDashboardController.getInboxTable().getCurrentItemsCount() < 1 ||
+                adminDashboardController.getSentboxTable().getCurrentItemsCount() < 1)) {
+            generateInboxAndSentTableView();
+        }
+    }
+
+    private void generateInboxAndSentTableView() {
+        adminDashboardController.getSentboxTable().getColumns().clear();
+        adminDashboardController.getInboxTable().getColumns().clear();
+
+        List<Message> received = messageService.getAllReceivedMessages();
+        receivedMessages = FXCollections.observableList(received.stream()
+                        .map(MessageTableView::convert)
+                        .collect(Collectors.toList()));
+
+        List<Message> sent = messageService.getAllSentMessages();
+        sentMessages = FXCollections.observableList(sent.stream()
+                .map(MessageTableView::convert)
+                .collect(Collectors.toList()));
+
+        TreeTableColumn<MessageTableView, String> senderColumn = new TreeTableColumn<>("From");
+        TreeTableColumn<MessageTableView, String> sendTitleColumn = new TreeTableColumn<>("Title");
+        TreeTableColumn<MessageTableView, String> sendDateColumn = new TreeTableColumn<>("Date");
+
+        TreeTableColumn<MessageTableView, String> receiverColumn = new TreeTableColumn<>("To");
+        TreeTableColumn<MessageTableView, String> receivedTitleColumn = new TreeTableColumn<>("Title");
+        TreeTableColumn<MessageTableView, String> receivedDateColumn = new TreeTableColumn<>("Date");
+
+        senderColumn.setSortable(false);
+        sendTitleColumn.setSortable(false);
+        sendDateColumn.setSortable(false);
+
+        receiverColumn.setSortable(false);
+        receivedDateColumn.setSortable(false);
+        receivedDateColumn.setSortable(false);
+
+        adminDashboardController.getInboxTable().getColumns().addAll(senderColumn, sendTitleColumn, sendDateColumn);
+        adminDashboardController.getSentboxTable().getColumns().addAll(receiverColumn, receivedTitleColumn, receivedDateColumn);
+
+        senderColumn.setCellValueFactory(m -> m.getValue().getValue().getSender());
+        sendTitleColumn.setCellValueFactory(m -> m.getValue().getValue().getTitle());
+        sendDateColumn.setCellValueFactory(m -> m.getValue().getValue().getSentDate());
+
+        receiverColumn.setCellValueFactory(m -> m.getValue().getValue().getReceiver());
+        receivedTitleColumn.setCellValueFactory(m -> m.getValue().getValue().getTitle());
+        receivedDateColumn.setCellValueFactory(m -> m.getValue().getValue().getSentDate());
+
+
+        TreeItem<MessageTableView> inboxItem = new RecursiveTreeItem<MessageTableView>(receivedMessages, RecursiveTreeObject::getChildren);
+        TreeItem<MessageTableView> sentBoxItem = new RecursiveTreeItem<MessageTableView>(sentMessages, RecursiveTreeObject::getChildren);
+
+
+        adminDashboardController.getInboxTable().setRoot(inboxItem);
+        adminDashboardController.getInboxTable().setShowRoot(false);
+        adminDashboardController.getSentboxTable().setRoot(sentBoxItem);
+        adminDashboardController.getSentboxTable().setShowRoot(false);
+
+
     }
 
     private void generateUserTableView() {
@@ -71,9 +144,7 @@ public class AdminDashboardTablesComponent {
         adminDashboardController.getUserTable().setSelectionModel(null);
 
         List<UserModel> users = userService.getAllUsers();
-        userTableViews = FXCollections.
-                observableList(users
-                        .stream()
+        userTableViews = FXCollections.observableList(users.stream()
                         .map(UserTableView::convert)
                         .map(u -> u.generateDelButton(u))
                         .peek(u -> u.getDelete().getValue()
@@ -198,5 +269,7 @@ public class AdminDashboardTablesComponent {
         adminDashboardController.getProjectTable().setShowRoot(false);
     }
 
-
+    public void showMessageWindow(long l) {
+        messageService.showMessageWindow(l);
+    }
 }

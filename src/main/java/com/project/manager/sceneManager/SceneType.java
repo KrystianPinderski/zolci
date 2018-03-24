@@ -36,6 +36,11 @@ public enum SceneType {
         Integer getId() {
             return 5;
         }
+    }, MESSAGE_VIEW_WINDOW {
+        @Override
+        Integer getId() {
+            return 6;
+        }
     };
 
     /**

@@ -2,6 +2,7 @@ package com.project.manager.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableView;
+import com.project.manager.models.MessageTableView;
 import com.project.manager.models.ProjectTableView;
 import com.project.manager.models.UserTableView;
 import com.project.manager.sceneManager.SceneManager;
@@ -10,12 +11,14 @@ import com.project.manager.ui.components.admin.AdminDashboardTablesComponent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TreeItem;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -50,13 +53,19 @@ public class AdminDashboardController implements Initializable {
     private Tab usersTab;
 
     @FXML
-    private Tab inboxTab;
+    private Tab messageTab;
 
     @FXML
     private JFXTreeTableView<ProjectTableView> projectTable;
 
     @FXML
     private JFXTreeTableView<UserTableView> userTable;
+
+    @FXML
+    private JFXTreeTableView<MessageTableView> inboxTable;
+
+    @FXML
+    private JFXTreeTableView<MessageTableView> sentboxTable;
 
     @FXML
     private JFXButton logout;
@@ -77,8 +86,25 @@ public class AdminDashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         adminDashboardTablesComponent.generateProjectTableView();
+
         projectsTab.setOnSelectionChanged(e -> adminDashboardTablesComponent.generateTables());
         usersTab.setOnSelectionChanged(e -> adminDashboardTablesComponent.generateTables());
+        messageTab.setOnSelectionChanged(e -> adminDashboardTablesComponent.generateTables());
+
+        inboxTable.setOnMousePressed(e -> {
+            TreeItem<MessageTableView> item = inboxTable.getSelectionModel().getSelectedItem();
+            if (e.isPrimaryButtonDown() && e.getClickCount() == 2 && Optional.ofNullable(item).isPresent()) {
+                adminDashboardTablesComponent.showMessageWindow(item.getValue().getId().get());
+            }
+        });
+
+        sentboxTable.setOnMousePressed(e -> {
+            TreeItem<MessageTableView> item = sentboxTable.getSelectionModel().getSelectedItem();
+            if (e.isPrimaryButtonDown() && e.getClickCount() == 2 && Optional.ofNullable(item).isPresent()) {
+                adminDashboardTablesComponent.showMessageWindow(item.getValue().getId().get());
+            }
+        });
+
         updateProject.setOnAction(e -> sceneManager.showInNewWindow(SceneType.ADMIN_UPDATE_PROJECT));
     }
 }

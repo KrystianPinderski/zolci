@@ -1,6 +1,7 @@
 package com.project.manager.controllers;
 
 import com.project.manager.exceptions.EmptyUsernameException;
+import com.project.manager.exceptions.NotEnoughPermissionsException;
 import com.project.manager.exceptions.UserDoesNotExistException;
 import com.project.manager.sceneManager.SceneManager;
 import com.project.manager.services.AddUserService;
@@ -68,6 +69,9 @@ public class AddUserController implements Initializable {
             } catch (EmptyUsernameException eue) {
                 errorLabel.setVisible(true);
                 errorLabel.setText(eue.getMessage());
+            } catch (NotEnoughPermissionsException nepe) {
+                errorLabel.setVisible(true);
+                errorLabel.setText(nepe.getMessage());
             }
         });
     }

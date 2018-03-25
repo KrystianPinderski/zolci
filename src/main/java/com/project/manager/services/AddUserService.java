@@ -2,6 +2,7 @@ package com.project.manager.services;
 
 import com.project.manager.entities.UserModel;
 import com.project.manager.exceptions.EmptyUsernameException;
+import com.project.manager.exceptions.NotEnoughPermissionsException;
 import com.project.manager.exceptions.UserDoesNotExistException;
 import com.project.manager.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class AddUserService {
 
     private UserRepository userRepository;
     private SessionService sessionService;
-    Set<String> possibleUsers=new HashSet<>();
+    static String role="USER";
     @Autowired
     public AddUserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -28,7 +29,8 @@ public class AddUserService {
         return userRepository.findAllUsernames();
     }
 
-    public void findUser(String username) {
+    public UserModel findUser(String username) {
+
         if (username.isEmpty()) {
             throw new EmptyUsernameException("Username field can't be empty.");
         }
@@ -37,5 +39,11 @@ public class AddUserService {
         if (!Optional.ofNullable(userRepository.findByUsername(username)).isPresent()) {
             throw new UserDoesNotExistException("There is no user with that username in our service.");
         }
+        role=sessionService.getRole().toString();
+        if (role.equals("USER")) {
+            throw new NotEnoughPermissionsException("You do not have enough permissions to do that.");
+        }
+
+        return usermodel;
     }
 }

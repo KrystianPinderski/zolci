@@ -29,7 +29,7 @@ public class ProjectService {
      * @return list of projectsAsUser of logged user by id
      */
     public List<Project> projectsOfUser() {
-        return projectRepository.findByMembers_Id(sessionService.getID());
+        return projectRepository.findByMembers_Id(sessionService.getID()).get();
     }
 
     /**
@@ -40,6 +40,10 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
+    /**
+     * TO IMPLEMENT
+     * @param id
+     */
     public void delete(long id) {
     }
 }

@@ -1,4 +1,4 @@
-package com.project.manager.services.registration;
+package com.project.manager.services;
 
 import com.project.manager.BCryptEncoder;
 import com.project.manager.entities.UserModel;

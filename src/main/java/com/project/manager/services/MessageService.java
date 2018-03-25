@@ -41,7 +41,7 @@ public class MessageService {
      * @return the list of {@link Message}
      */
     public List<Message> getAllReceivedMessages() {
-        return messageRepository.findByReceiver(sessionService.getEmail());
+        return messageRepository.findByReceiver(sessionService.getEmail()).get();
     }
 
     /**
@@ -49,7 +49,7 @@ public class MessageService {
      * @return list of {@link Message}
      */
     public List<Message> getAllSentMessages() {
-        return messageRepository.findBySender(sessionService.getEmail());
+        return messageRepository.findBySender(sessionService.getEmail()).get();
     }
 
     /**

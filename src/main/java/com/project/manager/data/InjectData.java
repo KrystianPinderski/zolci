@@ -49,7 +49,7 @@ public class InjectData {
                 .unlockCode(String.valueOf(new Date().getTime()))
                 .password(BCryptEncoder.encode("password"))
                 .email("client@mail.com")
-                .role(UserRole.CLIENT)
+                .role(UserRole.USER)
                 .isLocked(false)
                 .projectsAsClient(new HashSet<>())
                 .firstName("Benek")

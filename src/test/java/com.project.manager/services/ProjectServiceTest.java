@@ -1,4 +1,4 @@
-package com.project.manager.services.project;
+package com.project.manager.services;
 
 import com.project.manager.admin.projects.AdminDashboardTablesComponentTest;
 import com.project.manager.entities.Project;
@@ -38,16 +38,16 @@ public class ProjectServiceTest {
     public void getAllProjectsTest() {
         when(projectRepository.findAll()).thenReturn(exampleProject);
 
-        projectService.getAllProjects();
+        List<Project> projects = projectService.getAllProjects();
 
-        assertNotNull(exampleProject);
-        assertEquals(exampleProject.size(), 2);
+        assertNotNull(projects);
+        assertEquals(projects.size(), 2);
 
-        assertNotNull(exampleProject.get(0));
-        assertEquals(exampleProject.get(0).getId().intValue(), 1);
-        assertEquals(exampleProject.get(0).getProjectName(), "projectOne");
-        assertEquals(exampleProject.get(0).getManager(), exampleProject.get(0).getManager());
-        assertEquals(exampleProject.get(0).getClient(), exampleProject.get(0).getClient());
-        assertEquals(exampleProject.get(0).getMembers().size(), 1);
+        assertNotNull(projects.get(0));
+        assertEquals(projects.get(0).getId().intValue(), 1);
+        assertEquals(projects.get(0).getProjectName(), "projectOne");
+        assertEquals(projects.get(0).getManager(), exampleProject.get(0).getManager());
+        assertEquals(projects.get(0).getClient(), exampleProject.get(0).getClient());
+        assertEquals(projects.get(0).getMembers().size(), 1);
     }
 }

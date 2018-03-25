@@ -95,7 +95,7 @@ public class AdminDashboardTablesComponent {
      * First is table of received admin messaged from other users in application
      * Second generate table view of sent messages by admin to other account in application
      */
-    private void generateInboxAndSentTableView() {
+    public void generateInboxAndSentTableView() {
         adminDashboardController.getSentboxTable().getColumns().clear();
         adminDashboardController.getInboxTable().getColumns().clear();
 
@@ -155,7 +155,7 @@ public class AdminDashboardTablesComponent {
      *
      * Inside is also refactor method to color users which are locked or block
      */
-    private void generateUserTableView() {
+    public void generateUserTableView() {
         adminDashboardController.getUserTable().getColumns().clear();
         adminDashboardController.getUserTable().setSelectionModel(null);
 
@@ -288,7 +288,7 @@ public class AdminDashboardTablesComponent {
     /**
      * This method are responsible for showing message window with more details about message
      * @param id this is the id parameter to select in {@link MessageService} that we will ask about message
-     *           with passed id after window appear
+     *           with passed id after show
      */
     public void showMessageWindow(long id) {
         messageService.showMessageWindow(id);

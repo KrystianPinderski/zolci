@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
  * selected project in future
  */
 @Component
-public class AdminUpdateProjectController implements Initializable{
+public class UpdateProjectController implements Initializable{
 
     @FXML
     private JFXButton accept;

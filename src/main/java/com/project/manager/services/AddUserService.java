@@ -14,21 +14,40 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * @author Patryk Sadok
+ * Class responsible for validating logged in user's permissions
+ * and returning chosen user with button.
+ *
+ * Class performs method, which gets list of all usernames in database.
+ * Class performs method, which returns UserModel of chosen user.
+ */
 @Service
 public class AddUserService {
 
     private UserRepository userRepository;
     private SessionService sessionService;
     static String role="USER";
+
     @Autowired
     public AddUserService(UserRepository userRepository) {
         this.userRepository = userRepository;
         this.sessionService = SessionService.getInstance();
     }
+
+    /**
+     * This method returns list of all usernames in database.
+     * @return list of usernames
+     */
     public List<String> getUserList() {
         return userRepository.findAllUsernames();
     }
 
+    /**
+     * This method returns model of chosen user.
+     * @param username given from textfield, parameter for searching in database.
+     * @return UserModel of found user
+     */
     public UserModel findUser(String username) {
 
         if (username.isEmpty()) {

@@ -12,6 +12,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * @author Patryk Sadok
+ * Class responsible for validating user data.
+ *
+ * Class performs method, which checks validation and existance of user in database.
+ */
 @Service
 public class LoginService {
     private UserRepository userRepository;
@@ -22,6 +28,13 @@ public class LoginService {
         this.sessionService = SessionService.getInstance();
     }
 
+
+    /**
+     * Method validating propriety of user's password and username
+     * Additionaly, it invokes SessionService to hold logged user data.
+     * @param username user's username given in textfield.
+     * @param password user's password given in textfield.
+     */
     public void loginUser(String username, String password) {
         if (username.isEmpty()) {
             throw new EmptyUsernameException("Username field can't be empty.");

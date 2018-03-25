@@ -22,6 +22,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+
+/**
+ * This is the class which is responsible for adding users window.
+ * This class perform display autobinding text field and button.
+ */
 @Component
 public class AddUserController implements Initializable {
 
@@ -76,6 +81,9 @@ public class AddUserController implements Initializable {
         });
     }
 
+    /**
+     * Method responsible for resetting error label.
+     */
     public void reserLabelError() {
         errorLabel.setText("");
         errorLabel.setVisible(false);

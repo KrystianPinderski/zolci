@@ -27,7 +27,7 @@ public class UserSelectorService {
 
     private UserRepository userRepository;
     private SessionService sessionService;
-    static  String role = "USER";
+    static String role = "USER";
 
     @Autowired
     public UserSelectorService(UserRepository userRepository) {
@@ -41,7 +41,11 @@ public class UserSelectorService {
      * @return list of usernames
      */
     public List<String> getUserList() {
-        return userRepository.findAllUsernames();
+        Optional<List<String>> optionalList = userRepository.findAllUsernames();
+        if (optionalList.isPresent()) {
+            return optionalList.get();
+        }
+        throw new RuntimeException("No users in database, critical error");
     }
 
     /**

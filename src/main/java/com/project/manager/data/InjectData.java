@@ -23,7 +23,7 @@ public class InjectData {
     private ProjectRepository projectRepository;
 
     private UserRepository userRepository;
-    private int i = 0;
+
     @Autowired
     public InjectData(ProjectRepository projectRepository, UserRepository userRepository) {
         this.projectRepository = projectRepository;
@@ -36,10 +36,6 @@ public class InjectData {
 
    @PostConstruct
     public void injectData() {
-
-       System.out.println(i);
-       i++;
-       /*
         UserModel userOne = UserModel.builder()
                 .username("user")
                 .code(String.valueOf(new Date().getTime()))
@@ -85,7 +81,6 @@ public class InjectData {
         projectRepository.save(projectOne);
         projectRepository.save(projectTwo);
         projectRepository.save(projectThree);
-*/
     }
 
 }

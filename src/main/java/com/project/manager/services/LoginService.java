@@ -30,6 +30,7 @@ public class LoginService {
             throw new EmptyPasswordException("Password field can't be empty.");
         }
 
+
         UserModel usermodel = userRepository.findByUsername(username);
 
         if (!Optional.ofNullable(userRepository.findByUsername(username)).isPresent()) {

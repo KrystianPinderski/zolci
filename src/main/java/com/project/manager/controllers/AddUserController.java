@@ -3,7 +3,6 @@ package com.project.manager.controllers;
 import com.project.manager.exceptions.EmptyUsernameException;
 import com.project.manager.exceptions.UserDoesNotExistException;
 import com.project.manager.sceneManager.SceneManager;
-import com.project.manager.sceneManager.SceneType;
 import com.project.manager.services.AddUserService;
 import com.project.manager.ui.components.ProjectPaneGenerator;
 import javafx.fxml.FXML;
@@ -12,11 +11,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.net.URL;
+import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 @Component
 public class AddUserController implements Initializable {
@@ -26,14 +29,16 @@ public class AddUserController implements Initializable {
     private ProjectPaneGenerator projectPaneGenerator;
     private AddUserService addUserService;
 
+    List<String> possibleUsers;
+    private AutoCompletionBinding<String> autoCompletionBinding;
+
     @FXML
     private Label errorLabel;
     @FXML
     private Button addUserButton;
     @FXML
-    private ListView<String> usersList;
-    @FXML
     private TextField usernameTextField;
+
 
     @Autowired
     public AddUserController(AddUserService addUserService) {
@@ -49,6 +54,8 @@ public class AddUserController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.reserLabelError();
+        possibleUsers=addUserService.getUserList();
+        TextFields.bindAutoCompletion(usernameTextField, possibleUsers);
 
         addUserButton.setOnMouseClicked(e -> {
             this.reserLabelError();

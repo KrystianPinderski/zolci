@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.manager.controllers.AddUserController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.manager.controllers.UserSelectorController">
    <children>
       <Label fx:id="errorLabel" layoutX="104.0" layoutY="74.0" text="error label (dont delete)" textFill="RED" />
       <Button fx:id="addUserButton" layoutX="367.0" layoutY="150.0" mnemonicParsing="false" text="Add user" />

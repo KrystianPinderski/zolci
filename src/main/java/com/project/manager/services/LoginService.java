@@ -15,23 +15,24 @@ import java.util.Optional;
 /**
  * @author Patryk Sadok
  * Class responsible for validating user data.
- *
+ * <p>
  * Class performs method, which checks validation and existance of user in database.
  */
 @Service
 public class LoginService {
     private UserRepository userRepository;
     private SessionService sessionService;
+
     @Autowired
     public LoginService(UserRepository userRepository) {
         this.userRepository = userRepository;
         this.sessionService = SessionService.getInstance();
     }
 
-
     /**
      * Method validating propriety of user's password and username
      * Additionaly, it invokes SessionService to hold logged user data.
+     *
      * @param username user's username given in textfield.
      * @param password user's password given in textfield.
      */
@@ -42,10 +43,7 @@ public class LoginService {
         if (password.isEmpty()) {
             throw new EmptyPasswordException("Password field can't be empty.");
         }
-
-
         UserModel usermodel = userRepository.findByUsername(username);
-
         if (!Optional.ofNullable(userRepository.findByUsername(username)).isPresent()) {
             throw new UserDoesNotExistException("There is no user with that username in our service.");
         }

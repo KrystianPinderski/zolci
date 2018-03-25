@@ -8,12 +8,11 @@ import com.project.manager.exceptions.NotEnoughPermissionsException;
 import com.project.manager.exceptions.UserDoesNotExistException;
 import com.project.manager.models.UserRole;
 import com.project.manager.repositories.UserRepository;
-import com.project.manager.services.AddUserService;
+import com.project.manager.services.UserSelectorService;
 import com.project.manager.services.LoginService;
 import com.project.manager.services.RegistrationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -21,12 +20,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AddUserServiceTest {
+public class UserSelectorServiceTest {
     @Mock
     private UserRepository userRepository;
 
     @InjectMocks
-    private AddUserService addUserService;
+    private UserSelectorService userSelectorService;
     @InjectMocks
     private LoginService loginService;
     @InjectMocks
@@ -34,12 +33,12 @@ public class AddUserServiceTest {
 
     @Test(expected = UserDoesNotExistException.class)
     public void testExpectedUserDoesNotExist() {
-        addUserService.findUser("usernameasd");
+        userSelectorService.findUser("usernameasd");
     }
 
     @Test(expected = EmptyUsernameException.class)
     public void testExpectedEmptyUsername() {
-        addUserService.findUser("");
+        userSelectorService.findUser("");
     }
 
     @Test(expected = NotEnoughPermissionsException.class)
@@ -52,7 +51,7 @@ public class AddUserServiceTest {
                 .isFirstLogin(true).build();
         when(userRepository.findByUsername("user")).thenReturn(userModel);
         loginService.loginUser("user","password");
-        addUserService.findUser("user");
+        userSelectorService.findUser("user");
     }
 
     @Test
@@ -65,7 +64,7 @@ public class AddUserServiceTest {
                 .isFirstLogin(true).build();
         when(userRepository.findByUsername("user")).thenReturn(userModel);
         loginService.loginUser("user","password");
-        addUserService.findUser("user");
+        userSelectorService.findUser("user");
     }
     @Test
     public void testAddingUserAsClient() {
@@ -77,6 +76,6 @@ public class AddUserServiceTest {
                 .isFirstLogin(true).build();
         when(userRepository.findByUsername("user")).thenReturn(userModel);
         loginService.loginUser("user","password");
-        addUserService.findUser("user");
+        userSelectorService.findUser("user");
     }
 }

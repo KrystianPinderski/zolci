@@ -105,9 +105,9 @@ public class AdminDashboardTablesComponentTest {
         assertNotNull(AdminDashboardTablesComponent.userTableViews);
         assertEquals(AdminDashboardTablesComponent.userTableViews.size(), 3);
         assertEquals(AdminDashboardTablesComponent.userTableViews.get(0).getId().getValue(),
-                users);
+                users.get(0).getId());
         assertEquals(AdminDashboardTablesComponent.userTableViews.get(0).getIsLocked().asObject().get(),
-                users);
+                users.get(0).isLocked());
         assertEquals(AdminDashboardTablesComponent.userTableViews.get(0).getCountOfProjects().get(),
                  users.get(0).getProjectsAsClient().size() +
                         users.get(0).getProjectsAsManager().size() +

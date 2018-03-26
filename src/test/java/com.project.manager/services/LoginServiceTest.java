@@ -79,6 +79,4 @@ public class LoginServiceTest {
         when(userRepository.findByUsername("username")).thenReturn(userModel);
         loginService.loginUser("username","123");
     }
-
-
 }
